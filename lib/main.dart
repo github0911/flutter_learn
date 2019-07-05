@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
-import 'page/CustomForm.dart';
+import 'page/custom_form.dart';
+import 'package:oktoast/oktoast.dart';
+import 'widget/frosted.dart';
+import 'page/scaffold_widget.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -8,7 +12,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return OKToast(
+      child: MaterialApp(
         title: 'Hello Flutter',
         theme: ThemeData(
           // This is the theme of your application.
@@ -23,7 +28,9 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
 //      home: MyHomePage(title: "Hello Flutter"),
-        home: CustomForm(),
+//      home: CustomForm(),
+//        home: Frosted(),
+        home: ScaffoldWidget(),
 //        home: new Scaffold(
 //          appBar: new AppBar(
 //            title: new Text("Welcome to flutter"),
@@ -33,7 +40,35 @@ class MyApp extends StatelessWidget {
 ////            child: new MyHomePage(title: "Hello Flutter",),
 //          ),
 //        )
+      ),
+
     );
+//    return MaterialApp(
+//        title: 'Hello Flutter',
+//        theme: ThemeData(
+//          // This is the theme of your application.
+//          //
+//          // Try running your application with "flutter run". You'll see the
+//          // application has a blue toolbar. Then, without quitting the app, try
+//          // changing the primarySwatch below to Colors.green and then invoke
+//          // "hot reload" (press "r" in the console where you ran "flutter run",
+//          // or simply save your changes to "hot reload" in a Flutter IDE).
+//          // Notice that the counter didn't reset back to zero; the application
+//          // is not restarted.
+//          primarySwatch: Colors.blue,
+//        ),
+////      home: MyHomePage(title: "Hello Flutter"),
+//        home: CustomForm(),
+////        home: new Scaffold(
+////          appBar: new AppBar(
+////            title: new Text("Welcome to flutter"),
+////          ),
+////          body: new Center(
+////            child: new RandomWords(),
+//////            child: new MyHomePage(title: "Hello Flutter",),
+////          ),
+////        )
+//    );
   }
 }
 
@@ -108,7 +143,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.display1,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .display1,
             ),
           ],
         ),
@@ -141,7 +179,7 @@ class RandomWordsState extends State<RandomWords> {
     final wordPair = new WordPair.random();
 
 //    return new Text(wordPair.asPascalCase);
-      return _buildSuggestions();
+    return _buildSuggestions();
   }
 
   Widget _buildSuggestions() {
