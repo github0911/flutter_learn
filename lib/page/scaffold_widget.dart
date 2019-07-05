@@ -11,16 +11,21 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
   Widget build(BuildContext context) {
     // TODO: implement build
     var footerButton = List<Widget>();
+    final _phoneController = TextEditingController();
+    final _codeController = TextEditingController();
+
     footerButton
       ..add(Icon(
         Icons.accessibility_new,
         color: Colors.red,
         size: 30,
-      ))..add(Icon(
+      ))
+      ..add(Icon(
         Icons.account_box,
         color: Colors.blue,
         size: 30,
-      ))..add(Icon(
+      ))
+      ..add(Icon(
         Icons.contact_mail,
         color: Colors.yellow,
         size: 30,
@@ -38,6 +43,7 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
             ),
             TextField(
               keyboardType: TextInputType.number,
+              controller: _phoneController,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -54,8 +60,52 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
             SizedBox(
               height: 10,
             ),
+            TextField(
+              controller: _codeController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+//              icon: Icon(Icons.text_fields),
+                labelText: "请输入验证码",
+              ),
+              autofocus: false,
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(6),
+                WhitelistingTextInputFormatter(RegExp(r'\d+')),
+              ],
+            ),
+            SizedBox(
+              height: 80,
+            ),
+            ButtonBar(
+              alignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FlatButton(
+                  child: Text('取消'),
+//                  shape: BeveledRectangleBorder(
+//                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
+//                  ),
+                  onPressed: () {
+                    _phoneController.clear();
+                    _codeController.clear();
+                  },
+                ),
+                RaisedButton(
+                  child: Text('登录'),
+                  elevation: 8.0,
+//                  shape: BeveledRectangleBorder(
+//                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
+//                  ),
+                  onPressed: () {
+//                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
           ],
         ),
+
         //设置floatingActionButton
         floatingActionButton: FloatingActionButton(
           onPressed: () {
