@@ -49,7 +49,7 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
                 contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
 //              icon: Icon(Icons.text_fields),
                 labelText: "请输入手机号",
-                helperText: "请输入您使用的手机号",
+//                helperText: "请输入您使用的手机号",
               ),
               autofocus: false,
               inputFormatters: [
@@ -59,6 +59,11 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
             ),
             SizedBox(
               height: 10,
+            ),
+            Divider(
+              height: 1,
+              color: Colors.black,
+              indent: 20,
             ),
             TextField(
               controller: _codeController,
@@ -79,6 +84,7 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
               height: 80,
             ),
             ButtonBar(
+              //按钮显示位置 默认MainAxisAlignment.end
               alignment: MainAxisAlignment.center,
               children: <Widget>[
                 FlatButton(
