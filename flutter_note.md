@@ -20,6 +20,12 @@ const所修饰的是编译时常量，我们在编译时就已经知道了它的
 dart 中类 implements 不需要重写父类的构造方法  
 Dart 语言并没有提供 interface 关键字，但是每一个类都隐式地定义了一个接口。
 
+**如何更新 Widget**
+在 Android 中，你可以直接操作更新 View。然而在 Flutter 中，Widget 是不可变的， 无法被直接更新，你需要操作 Widget 的状态。  
+这就是有状态 (Stateful) 和无状态 (Stateless) Widget 概念的来源。  
+这里需要着重注意的是，无状态和有状态的 Widget 本质上是行为一致的。它们每一帧都会重建，不同之处 在于 StatefulWidget 有一个跨帧存储和恢复状态数据的 State 对象。
+如果一个 Widget 会变化（例如由于用户交互），它是有状态的。 然而，如果一个 Widget 响应变化，它的父 Widget 只要本身不响应变化，就依然是无状态的。 
+
 **在函数式编程中，你可以做到：**
 1. 将函数当做参数进行传递
 2. 将函数直接赋值给变量
@@ -41,8 +47,25 @@ Button
 
 除 FlatButton 和 RaisedButton 之外，还有 OutlineButton ， FloatingActionButton ， IconButton ，等等。
 
-**代码块**
+**控件说明**  
+Column 一个children属性，包含多个子项。垂直控件多个，但是不能滚动
+ListView 一个children属性，包含多个子项。垂直控件多个，可以滚动
+Row 水平控件多个
+Align,Center,Container 只能存放一个控件
 
+**本地图片加载配置与实现**  
+在pubspec.yaml 文件中flutter: 节点增加  
+    
+    flutter: 
+      assets:
+      # 这样是assets目录下所有文件
+      # 如果是assets/ic_launcher.png 指定某个文件
+        - assets/
+    
+**嵌套行和列**  
+为了最大限度地减少高度嵌套的布局代码可能导致的视觉混乱，可以在变量和函数中实现 UI 的各个部分。  
+
+**代码块**
 
     void main() {
         printf("Hello, Flutter.");
@@ -54,6 +77,14 @@ plugins
 1. 修改pubspec.yaml 在dependencies加入对应的插件版本信息
 2. 在Android Studio的编辑器视图中查看pubspec时，单击右上角的 Packages get，这会将依赖包安装到您的项目。（类似gradle sync）
 3. 在需要使用的文件中导入依赖
+
+更新依赖包
+==
+当你在添加一个包后首次运行（IntelliJ中的’Packages Get’）flutter packages get，Flutter将找到包的版本保存在pubspec.lock。
+这确保了如果您或您的团队中的其他开发人员运行flutter packages get后回获取相同版本的包。
+
+如果要升级到软件包的新版本，例如使用该软件包中的新功能，请运行flutter packages upgrade（在IntelliJ中点击Upgrade dependencies）。 
+这将根据您在pubspec.yaml中指定的版本约束下载所允许的最高可用版本。
 
 [oktoast]("https://www.kikt.top/posts/flutter/toast/oktoast/#%E6%96%87%E6%9C%AC-toast")  
 [oktoast接入官方示例]("https://pub.dev/packages/oktoast#-example-tab-")  

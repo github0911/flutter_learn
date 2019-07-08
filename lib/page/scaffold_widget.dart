@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:oktoast/oktoast.dart';
 
 class ScaffoldWidget extends StatefulWidget {
   @override
@@ -11,6 +13,7 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
   Widget build(BuildContext context) {
     // TODO: implement build
     var footerButton = List<Widget>();
+    final _nameController = TextEditingController();
     final _phoneController = TextEditingController();
     final _codeController = TextEditingController();
 
@@ -42,13 +45,39 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
               padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
             ),
             TextField(
-              keyboardType: TextInputType.number,
-              controller: _phoneController,
+              keyboardType: TextInputType.text,
+              controller: _nameController,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
 //              icon: Icon(Icons.text_fields),
-                labelText: "请输入手机号",
+                labelText: "请输入用户名",
+//                helperText: "只能输入中文",
+              ),
+              autofocus: false,
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(8),
+                WhitelistingTextInputFormatter(RegExp(r'[\u4e00-\u9fa5]+')),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Divider(
+              height: 1,
+              color: Colors.black,
+              indent: 20,
+            ),
+            TextField(
+              keyboardType: TextInputType.number,
+              controller: _phoneController,
+              decoration: InputDecoration(
+                hintText: "请输入手机号",
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                suffixIcon: Icon(Icons.text_fields),
+//                icon: Icon(Icons.text_fields),
+//                labelText: "请输入手机号",
 //                helperText: "请输入您使用的手机号",
               ),
               autofocus: false,
@@ -69,16 +98,23 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
               controller: _codeController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
+                hintText: '请输入验证码',
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 10),
 //              icon: Icon(Icons.text_fields),
-                labelText: "请输入验证码",
+//                labelText: "请输入验证码",
+//                labelStyle: TextStyle(fontSize: 20, ),
               ),
               autofocus: false,
               inputFormatters: [
                 LengthLimitingTextInputFormatter(6),
                 WhitelistingTextInputFormatter(RegExp(r'\d+')),
               ],
+            ),
+            Divider(
+              height: 1,
+              color: Colors.black,
+              indent: 20,
             ),
             SizedBox(
               height: 80,
@@ -93,13 +129,14 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
 //                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
 //                  ),
                   onPressed: () {
+                    _nameController.clear();
                     _phoneController.clear();
                     _codeController.clear();
                   },
                 ),
                 RaisedButton(
                   child: Text('登录'),
-                  elevation: 8.0,
+//                  elevation: 8.0,
 //                  shape: BeveledRectangleBorder(
 //                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
 //                  ),
@@ -109,6 +146,36 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
                 ),
               ],
             ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Text(
+                    '聊天',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 15,
+//                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.underline),
+                  ),
+                ),
+                Expanded(
+                  child: Icon(
+                    Icons.account_box,
+                    color: Colors.blue,
+                    size: 30,
+                  ),
+                ),
+                Expanded(
+                  child: Icon(
+                    Icons.contact_mail,
+                    color: Colors.blue,
+                    size: 30,
+                  ),
+                ),
+              ],
+            )
           ],
         ),
 
@@ -116,14 +183,23 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             setState(() {
+              //日历控件
+//              DatePicker.showDatePicker(context,
+//                  showTitleActions: true,
+//                  minTime: DateTime(2019, 7, 3),
+//                  maxTime: DateTime(2100, 12, 31), onConfirm: (date) {
+//                showToast('date ---> $date');
+//              }, currentTime: DateTime.now(), locale: LocaleType.zh);
+              //底部弹框
               showModalBottomSheet(
                   context: context,
                   builder: (BuildContext context) {
                     return Container(
                       height: 500,
                       width: 300,
-                      child: Image.network(
-                          "https://gw.alicdn.com/tfs/TB1CgtkJeuSBuNjy1XcXXcYjFXa-906-520.png"),
+                      child: Image.asset("assets/ic_launcher.png"),
+//                      child: Image.network(
+//                          "https://gw.alicdn.com/tfs/TB1CgtkJeuSBuNjy1XcXXcYjFXa-906-520.png"),
                     );
                   });
             });
