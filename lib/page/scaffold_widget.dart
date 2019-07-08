@@ -161,10 +161,23 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
                   ),
                 ),
                 Expanded(
-                  child: Icon(
-                    Icons.account_box,
-                    color: Colors.blue,
-                    size: 30,
+                  //富文本
+                  child: RichText(
+                    text: TextSpan(
+                      style: TextStyle(color: Colors.red),
+                      text: 'Hello ',
+//                      style: DefaultTextStyle.of(context).style,
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'bold',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue)),
+                        TextSpan(
+                            text: ' world!',
+                            style: TextStyle(color: Colors.lightGreen)),
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(
