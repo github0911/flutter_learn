@@ -179,7 +179,7 @@ Widget _createWidget(int position) {
   );
 }
 
-class Song extends StatelessWidget {
+class Song extends StatefulWidget {
   const Song({this.title, this.author, this.likes, this.isLike: false});
 
   final String title;
@@ -188,9 +188,21 @@ class Song extends StatelessWidget {
   final bool isLike;
 
   @override
+  SongState createState() {
+    return new SongState(title: title, author: author, likes: likes, isLike: isLike);
+  }
+}
+
+class SongState extends State<Song> {
+  SongState({this.title, this.author, this.likes, this.isLike: false});
+  final String title;
+  final String author;
+  final int likes;
+  bool isLike;
+
+  @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-
     return new Container(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -206,25 +218,30 @@ class Song extends StatelessWidget {
               child: CircleAvatar(
                 backgroundImage: new NetworkImage(
                     'http://thecatapi.com/api/images/get?format=src'
-                    '&size=small&type=jpg#${title.hashCode}'),
+                        '&size=small&type=jpg#${title.hashCode}'),
                 radius: 20,
               ),
+              padding: const EdgeInsets.all(1.0), // borde width
+              decoration: new BoxDecoration(
+                color: const Color(0xFFFFFFFF), // border color
+                shape: BoxShape.circle,
+              )
             ),
             Expanded(
                 child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Text(
-                  title,
-                  style: textTheme.subhead,
-                ),
-                Text(
-                  author,
-                  style: textTheme.caption,
-                )
-              ],
-            )),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text(
+                      title,
+                      style: textTheme.subhead,
+                    ),
+                    Text(
+                      author,
+                      style: textTheme.caption,
+                    )
+                  ],
+                )),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 5),
 //              padding: const EdgeInsets.all(5),
@@ -233,7 +250,9 @@ class Song extends StatelessWidget {
                   Icons.play_arrow,
                   size: 40,
                 ),
-                onTap: () {},
+                onTap: () {
+
+                },
               ),
             ),
             Container(
@@ -245,13 +264,18 @@ class Song extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.favorite,
-                      color: isLike ? Colors.red : null,
+                      color: isLike ? Colors.blue : null,
                       size: 25,
                     ),
-                    Text('${likes ?? ''}'),
+                    Text('${likes ?? ''}', style: TextStyle(color: isLike ? Colors.blue : null),),
                   ],
                 ),
-                onTap: () {},
+                onTap: () {
+                  setState(() {
+                    isLike = !isLike;
+                    print('isLike $isLike');
+                  });
+                },
               ),
             ),
           ],
@@ -259,4 +283,5 @@ class Song extends StatelessWidget {
       ),
     );
   }
+
 }
