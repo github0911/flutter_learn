@@ -4,9 +4,13 @@ import 'page/custom_form.dart';
 import 'package:oktoast/oktoast.dart';
 import 'widget/frosted.dart';
 import 'page/scaffold_widget.dart';
+import 'page/route_data.dart';
+import 'page/network.dart';
+import 'page/pages.dart';
+import 'page/list_page.dart';
+import 'page/stack_page.dart';
 
-
-void main() => runApp(MyApp());
+void main() => runApp(PagesApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
