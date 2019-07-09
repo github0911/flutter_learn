@@ -162,21 +162,29 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
                 ),
                 Expanded(
                   //富文本
-                  child: RichText(
-                    text: TextSpan(
-                      style: TextStyle(color: Colors.red),
-                      text: 'Hello ',
+                  child: GestureDetector(
+                    onTap: () {
+                      showToast("RichText");
+                    },
+                    onLongPress: () {
+                      showBottomSheet();
+                    },
+                    child: RichText(
+                      text: TextSpan(
+                        style: TextStyle(color: Colors.red),
+                        text: 'Hello ',
 //                      style: DefaultTextStyle.of(context).style,
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: 'bold',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blue)),
-                        TextSpan(
-                            text: ' world!',
-                            style: TextStyle(color: Colors.lightGreen)),
-                      ],
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: 'bold',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue)),
+                          TextSpan(
+                              text: ' world!',
+                              style: TextStyle(color: Colors.lightGreen)),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -204,17 +212,18 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
 //                showToast('date ---> $date');
 //              }, currentTime: DateTime.now(), locale: LocaleType.zh);
               //底部弹框
-              showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Container(
-                      height: 500,
-                      width: 300,
-                      child: Image.asset("assets/ic_launcher.png"),
-//                      child: Image.network(
-//                          "https://gw.alicdn.com/tfs/TB1CgtkJeuSBuNjy1XcXXcYjFXa-906-520.png"),
-                    );
-                  });
+              showBottomSheet();
+//              showModalBottomSheet(
+//                  context: context,
+//                  builder: (BuildContext context) {
+//                    return Container(
+//                      height: 500,
+//                      width: 300,
+//                      child: Image.asset("assets/ic_launcher.png"),
+////                      child: Image.network(
+////                          "https://gw.alicdn.com/tfs/TB1CgtkJeuSBuNjy1XcXXcYjFXa-906-520.png"),
+//                    );
+//                  });
             });
           },
           tooltip: "setState",
@@ -226,5 +235,19 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
         persistentFooterButtons: footerButton,
         //控制界面内容 body 是否重新布局来避免底部被覆盖，比如当键盘显示的时候，重新布局避免被键盘盖住内容。
         resizeToAvoidBottomInset: false);
+  }
+
+  void showBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: 500,
+            width: 300,
+            child: Image.asset("assets/ic_launcher.png"),
+//                      child: Image.network(
+//                          "https://gw.alicdn.com/tfs/TB1CgtkJeuSBuNjy1XcXXcYjFXa-906-520.png"),
+          );
+        });
   }
 }
