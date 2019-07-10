@@ -189,12 +189,14 @@ class Song extends StatefulWidget {
 
   @override
   SongState createState() {
-    return new SongState(title: title, author: author, likes: likes, isLike: isLike);
+    return new SongState(
+        title: title, author: author, likes: likes, isLike: isLike);
   }
 }
 
 class SongState extends State<Song> {
   SongState({this.title, this.author, this.likes, this.isLike: false});
+
   final String title;
   final String author;
   final int likes;
@@ -202,7 +204,6 @@ class SongState extends State<Song> {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
     return new Container(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -213,35 +214,8 @@ class SongState extends State<Song> {
       child: new IntrinsicHeight(
         child: Row(
           children: <Widget>[
-            Container(
-              margin: const EdgeInsets.only(top: 4, bottom: 4, right: 10),
-              child: CircleAvatar(
-                backgroundImage: new NetworkImage(
-                    'http://thecatapi.com/api/images/get?format=src'
-                        '&size=small&type=jpg#${title.hashCode}'),
-                radius: 20,
-              ),
-              padding: const EdgeInsets.all(1.0), // borde width
-              decoration: new BoxDecoration(
-                color: const Color(0xFFFFFFFF), // border color
-                shape: BoxShape.circle,
-              )
-            ),
-            Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text(
-                      title,
-                      style: textTheme.subhead,
-                    ),
-                    Text(
-                      author,
-                      style: textTheme.caption,
-                    )
-                  ],
-                )),
+            _getHead(),
+            _getNameAndAuthor(),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 5),
 //              padding: const EdgeInsets.all(5),
@@ -250,26 +224,13 @@ class SongState extends State<Song> {
                   Icons.play_arrow,
                   size: 40,
                 ),
-                onTap: () {
-
-                },
+                onTap: () {},
               ),
             ),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 5),
               child: InkWell(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.favorite,
-                      color: isLike ? Colors.blue : null,
-                      size: 25,
-                    ),
-                    Text('${likes ?? ''}', style: TextStyle(color: isLike ? Colors.blue : null),),
-                  ],
-                ),
+                child: _showFavorite(),
                 onTap: () {
                   setState(() {
                     isLike = !isLike;
@@ -284,4 +245,71 @@ class SongState extends State<Song> {
     );
   }
 
+  /// 图片
+  Widget _getHead() {
+    return Container(
+        margin: const EdgeInsets.only(top: 4, bottom: 4, right: 10),
+        child: CircleAvatar(
+          backgroundImage:
+              new NetworkImage('http://thecatapi.com/api/images/get?format=src'
+                  '&size=small&type=jpg#${title.hashCode}'),
+          radius: 20,
+        ),
+        padding: const EdgeInsets.all(1.0), // borde width
+        decoration: new BoxDecoration(
+          color: const Color(0xFFFFFFFF), // border color
+          shape: BoxShape.circle,
+        ));
+  }
+
+  /// 名字和作者
+  Widget _getNameAndAuthor() {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    return Expanded(
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Text(
+          title,
+          style: textTheme.subhead,
+        ),
+        Text(
+          author,
+          style: textTheme.caption,
+        )
+      ],
+    ));
+  }
+
+  ///
+  Widget _showFavorite() {
+    if (likes == null) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[_getFavoriteIcon()],
+      );
+    } else {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          _getFavoriteIcon(),
+          Text(
+            '${likes ?? ''}',
+            style: TextStyle(color: isLike ? Colors.blue : null),
+          ),
+        ],
+      );
+    }
+  }
+
+  Widget _getFavoriteIcon() {
+    return Icon(
+      Icons.favorite,
+      color: isLike ? Colors.blue : null,
+      size: 25,
+    );
+  }
 }
