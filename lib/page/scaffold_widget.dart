@@ -100,12 +100,12 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
                 controller: _codeController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                hintText: '请输入验证码',
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.fromLTRB(0, 20, 20, 10),
-                //              icon: Icon(Icons.text_fields),
-                //                labelText: "请输入验证码",
-                //                labelStyle: TextStyle(fontSize: 20, ),
+                  hintText: '请输入验证码',
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.fromLTRB(0, 20, 20, 10),
+                  //              icon: Icon(Icons.text_fields),
+                  //                labelText: "请输入验证码",
+                  //                labelStyle: TextStyle(fontSize: 20, ),
                 ),
                 autofocus: false,
                 inputFormatters: [
@@ -114,9 +114,9 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
                 ],
               ),
               decoration: BoxDecoration(
-                // 下滑线浅灰色，宽度1像素
-                border: Border(bottom: BorderSide(color: Colors.black, width: 1))
-              ),
+                  // 下滑灰色，宽度1像素
+                  border:
+                      Border(bottom: BorderSide(color: Colors.grey, width: 1))),
             ),
 //            Divider(
 //              height: 1,
@@ -131,10 +131,12 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
               alignment: MainAxisAlignment.center,
               children: <Widget>[
                 FlatButton(
+                  color: Colors.grey,
+                  colorBrightness: Brightness.dark,
                   child: Text('取消'),
-//                  shape: BeveledRectangleBorder(
-//                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
-//                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  ),
                   onPressed: () {
                     _nameController.clear();
                     _phoneController.clear();
@@ -142,11 +144,14 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
                   },
                 ),
                 RaisedButton(
+                  color: Colors.blue,
+                  //按钮主题
+                  colorBrightness: Brightness.dark,
                   child: Text('登录'),
 //                  elevation: 8.0,
-//                  shape: BeveledRectangleBorder(
-//                    borderRadius: BorderRadius.all(Radius.circular(7.0)),
-//                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  ),
                   onPressed: () {
 //                    Navigator.pop(context);
                   },
