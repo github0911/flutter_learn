@@ -1,18 +1,107 @@
 ## [Windows 安装flutter]("https://flutterchina.club/setup-windows/")
 
 ### 使用外部包的操作流程：
-
 编辑pubspec.yaml 在dependencies中加入所需要引入的package  
 pubspec文件管理Flutter应用程序的assets(资源，如图片、package等)。  
 在Android Studio的编辑器视图中查看pubspec时，单击右上角的 Packages get，这会将依赖包安装到您的项目。（类似gradle sync）
-* 1、Stateless widgets 是不可变的, 这意味着它们的属性不能改变 - 所有的值都是最终的.
-* 2、Stateful widgets 持有的状态可能在widget生命周期中发生变化. 实现一个 stateful widget 至少需要两个类:
+**Widget**
+>@immutable 注解，这意味着控件不可被修改，只能被重新创建
+* 1、StatelessWidget 是不可变的, 这意味着它们的属性不能改变 - 所有的值都是最终的.
+* 2、StatefulWidget 持有的状态可能在widget生命周期中发生变化. 实现一个 stateful widget 至少需要两个类:
     一个 StatefulWidget类。
     一个 State类。 StatefulWidget类本身是不变的，但是 State类在widget生命周期中始终存在.
 
 提示: 在Flutter的响应式风格的框架中，调用setState() 会为State对象触发build()方法，从而导致对UI的更新  
 提示: 某些widget属性需要单个widget（child），而其它一些属性，如action，需要一组widgets(children），用方括号[]表示。  
 ### [语法]("https://www.jianshu.com/p/3d927a7bf020")
+变量声明
+--
+1. var  可以接收任何类型的变量，但是赋值之后类型就会确定，不能再改变其类型。
+2. dynamic, Object 是Dart所有对象的根基类，也就是说所有类型都是Object的子类。任何类型都可以赋值给Object，dynamic与var都是关键词，声明的变量可以赋值任意对象。而dynamic与Object相同之处在于他们声明的变量可以在后期改变赋值类型。dynamic与Object不同的是，dynamic声明的对象编译器会提供所有可能的组合，而Object声明只能使用Object的属性与方法。否则编译器会报错。
+3. final和const 如果从未打算更改一个变量，那么使用final或const。一个final变量只能被设置一次，两者区别在于const变量是一个编译时常量，final变量在第一次使用时被初始化。被final或const修饰的变量，变量类型可以省略。
+
+函数  
+--
+Dart是一种真正的面向对象的语言，所以即使是函数也是对象，并且有一个类型Function。这意味着函数可以赋值给变量或作为参数传递给其他函数，这是函数式编程的典型特征。  
+可选的位置参数，[]标记为可选的位置参数。  
+可选的命名参数，定义函数，使用{param1, param2,}，用于指定命名参数
+
+异步支持
+--
+Dart类库有非常多的返回`Future`或者`Stream`对象的函数。 这些函数被称为**异步函数**：它们只会在设置好一些耗时操作之后返回，比如像 IO操作。而不是等到这个操作完成。  
+`async`和`await`关键词支持了异步编程，允许您写出和同步代码很像的异步代码。  
+
+**Future**  
+Future与JavaScript中的Promise非常相似，表示一个异步操作的最终完成（或失败）及其结果值的表示。简单来说，它就是用于处理异步操作的，异步处理成功了就执行成功的操作，异步处理失败了就捕获错误或者停止后续操作。一个Future只会对应一个结果，要么成功，要么失败。
+
+由于本身功能较多，这里我们只介绍其常用的API及特性。还有，请记住，Future 的所有API的返回值仍然是一个Future对象，所以可以很方便的进行链式调用。  
+**Future.wait**  
+有些时候，我们需要等待多个异步任务都执行结束后才进行一些操作，比如我们有一个界面，需要先分别从两个网络接口获取数据，获取成功后，我们需要将两个接口数据进行特定的处理后再显示到UI界面上，应该怎么做？答案是`Future.wait`，它接受一个`Future数组参数`，只有数组中所有Future都执行成功后，才会触发then的成功回调，只要有一个Future执行失败，就会触发错误回调。下面，我们通过模拟Future.delayed 来模拟两个数据获取的异步任务，等两个异步任务都执行成功时  
+**async/await**  
+如果代码中有大量异步逻辑，并且出现大量异步任务依赖其它异步任务的结果时，必然会出现Future.then回调中套回调情况。举个例子，比如现在有个需求场景是用户先登录，登录成功后会获得用户ID，然后通过用户ID，再去请求用户个人信息，获取到用户个人信息后，为了使用方便，我们需要将其缓存在本地文件系统，代码如下：
+        
+    //先分别定义各个异步任务
+    Future<String> login(String userName, String pwd){
+        ...
+        //用户登录
+    };
+    Future<String> getUserInfo(String id){
+        ...
+        //获取用户信息 
+    };
+    Future saveUserInfo(String userInfo){
+        ...
+        // 保存用户信息 
+    };
+
+接下来，执行整个任务流：  
+
+    login("alice","******").then((id){
+         //登录成功后通过，id获取用户信息    
+     getUserInfo(id).then((userInfo){
+            //获取用户信息后保存 
+        saveUserInfo(userInfo).then((){
+               //保存用户信息，接下来执行其它操作
+            ...
+        });
+      });
+    })
+
+**使用Future消除Callback Hell**
+
+    login("alice","******").then((id){
+          return getUserInfo(id);
+    }).then((userInfo){
+        return saveUserInfo(userInfo);
+    }).then((e){
+       //执行接下来的操作 
+    }).catchError((e){
+      //错误处理  
+      print(e);
+    });
+
+正如上文所述， “Future 的所有API的返回值仍然是一个Future对象，所以可以很方便的进行链式调用” ，如果在then中返回的是一个Future的话，该future会执行，执行结束后会触发后面的then回调，这样依次向下，就避免了层层嵌套。
+
+**使用async/await消除callback hell**
+通过Future回调中再返回Future的方式虽然能避免层层嵌套，但是还是有一层回调，有没有一种方式能够让我们可以像写同步代码那样来执行异步任务而不使用回调的方式？答案是肯定的，这就要使用async/await了，下面我们先直接看代码，然后再解释，代码如下：
+
+    task() async {
+       try{
+        String id = await login("alice","******");
+        String userInfo = await getUserInfo(id);
+        await saveUserInfo(userInfo);
+        //执行接下来的操作   
+       } catch(e){
+        //错误处理   
+        print(e);   
+       }  
+    }
+- async用来表示函数是异步的，定义的函数会返回一个Future对象，可以使用then方法添加回调函数。
+- await 后面是一个Future，表示等待该异步任务完成，异步完成后才会往下走；await必须出现在 async 函数内部。
+
+可以看到，我们通过async/await将一个异步流用同步的代码表示出来了。
+>其实，无论是在JavaScript还是Dart中，async/await都只是一个语法糖，编译器或解释器最终都会将其转化为一个Promise（Future）的调用链。
+
 Flutter所使用的Dart语言，没有类似Java的publice protect private，以_开头的变量、函数和类，意味着它仅在库中是可视的  
 在Dart中，当你不需要去改变一个变量的时候，应该使用final或者const，而不是使用var去声明一个变量。  
 一个final变量只允许被赋值一次，必须在定义时或者构造函数参数表中将其初始化。  
@@ -20,13 +109,15 @@ const所修饰的是编译时常量，我们在编译时就已经知道了它的
 dart 中类 implements 不需要重写父类的构造方法  
 Dart 语言并没有提供 interface 关键字，但是每一个类都隐式地定义了一个接口。
 
-**如何更新 Widget**
+如何更新 Widget
+--
 在 Android 中，你可以直接操作更新 View。然而在 Flutter 中，Widget 是不可变的， 无法被直接更新，你需要操作 Widget 的状态。  
 这就是有状态 (Stateful) 和无状态 (Stateless) Widget 概念的来源。  
 这里需要着重注意的是，无状态和有状态的 Widget 本质上是行为一致的。它们每一帧都会重建，不同之处 在于 StatefulWidget 有一个跨帧存储和恢复状态数据的 State 对象。
 如果一个 Widget 会变化（例如由于用户交互），它是有状态的。 然而，如果一个 Widget 响应变化，它的父 Widget 只要本身不响应变化，就依然是无状态的。 
 
-**在函数式编程中，你可以做到：**
+在函数式编程中，你可以做到：
+--
 1. 将函数当做参数进行传递
 2. 将函数直接赋值给变量
 3. 对函数进行解构，只传递给函数一部分参数来调用它，让它返回一个函数去处理剩下的参数（也被称为柯里化）
@@ -40,10 +131,10 @@ Button
 如果传递 null ，或不包含这一字段（默认值是 null ），这些按钮会被禁用。它们会没有触摸反馈，我们也无法得知其可用时的表现。传递空代码块来让它们不被禁用。
 
 **标高（Elevation）的注意点：**
-1. 在 Material Design 里，所有的界面，组件都有自己的标高值；
-2. 在不同标高表面的边缘会有分割线来区别他们谁更"高"；
-3. 不同表面之间的高度差可以使用暗淡的背景，增亮的背景或阴影来表示；
-4. 标高较高的表面往往意味着内容也相对较为重要。
+- 在 Material Design 里，所有的界面，组件都有自己的标高值；
+- 在不同标高表面的边缘会有分割线来区别他们谁更"高"；
+- 不同表面之间的高度差可以使用暗淡的背景，增亮的背景或阴影来表示；
+- 标高较高的表面往往意味着内容也相对较为重要。
 
 除 FlatButton 和 RaisedButton 之外，还有 OutlineButton ， FloatingActionButton ， IconButton ，等等。
 
@@ -65,6 +156,18 @@ Align,Center,Container 只能存放一个控件
 **嵌套行和列**  
 为了最大限度地减少高度嵌套的布局代码可能导致的视觉混乱，可以在变量和函数中实现 UI 的各个部分。  
 
+**stack**  
+类似于Android layout的FrameLayout。  
+    
+    Stack(
+        this.alignment = AlignmentDirectional.topStart,
+        this.textDirection,
+        this.fit = StackFit.loose,
+        this.overflow = Overflow.clip,
+        List<Widget> children = const <Widget>[],
+    )
+    
+    
 **代码块**
 
     void main() {
