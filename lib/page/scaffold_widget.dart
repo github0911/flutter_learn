@@ -94,28 +94,35 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
               color: Colors.black,
               indent: 20,
             ),
-            TextField(
-              controller: _codeController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+            Container(
+              margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: TextField(
+                controller: _codeController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
                 hintText: '请输入验证码',
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 10),
-//              icon: Icon(Icons.text_fields),
-//                labelText: "请输入验证码",
-//                labelStyle: TextStyle(fontSize: 20, ),
+                contentPadding: EdgeInsets.fromLTRB(0, 20, 20, 10),
+                //              icon: Icon(Icons.text_fields),
+                //                labelText: "请输入验证码",
+                //                labelStyle: TextStyle(fontSize: 20, ),
+                ),
+                autofocus: false,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(6),
+                  WhitelistingTextInputFormatter(RegExp(r'\d+')),
+                ],
               ),
-              autofocus: false,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(6),
-                WhitelistingTextInputFormatter(RegExp(r'\d+')),
-              ],
+              decoration: BoxDecoration(
+                // 下滑线浅灰色，宽度1像素
+                border: Border(bottom: BorderSide(color: Colors.black, width: 1))
+              ),
             ),
-            Divider(
-              height: 1,
-              color: Colors.black,
-              indent: 20,
-            ),
+//            Divider(
+//              height: 1,
+//              color: Colors.black,
+//              indent: 20,
+//            ),
             SizedBox(
               height: 80,
             ),
