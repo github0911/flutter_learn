@@ -61,6 +61,20 @@ class WrapLayoutRoute extends StatelessWidget {
                 valueColor: AlwaysStoppedAnimation(Colors.redAccent[400]),
               ),
             ),
+            SizedBox(
+              height: 28,
+              width: 28,
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  CircularProgressIndicator(
+                    strokeWidth: 1,
+                    valueColor: AlwaysStoppedAnimation(Colors.grey[400]),
+                  ),
+                  Text('x'),
+                ],
+              ),
+            ),
             DecoratedBox(
               decoration: BoxDecoration(
                 color: Colors.blue,
@@ -115,6 +129,40 @@ class WrapLayoutRoute extends StatelessWidget {
                   style: TextStyle(color: Colors.green, fontSize: 18.0),
                 )
               ],
+            ),
+            Container(
+              margin: const EdgeInsets.all(10),
+              color: Colors.deepOrange,
+              child: Text('Hello Flutter'),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              color: Colors.deepOrange,
+              child: Text('Hello Flutter'),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 30, left: 60),
+              constraints: BoxConstraints.tightFor(width: 180, height: 100),
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  colors: [Colors.red, Colors.orange],
+                  center: Alignment.topLeft,
+                  radius: 0.98,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.orange[300],
+                    offset: Offset(2, 2),
+                    blurRadius: 3
+                  ),
+                ]
+              ),
+              transform: Matrix4.rotationZ(0.2),
+              alignment: Alignment.center,
+              child: Text(
+                '7-11',
+                style: TextStyle(color: Colors.white, fontSize: 40),
+              ),
             ),
           ],
         ),
