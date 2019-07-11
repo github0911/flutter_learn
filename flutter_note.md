@@ -39,7 +39,7 @@ Future与JavaScript中的Promise非常相似，表示一个异步操作的最终
 有些时候，我们需要等待多个异步任务都执行结束后才进行一些操作，比如我们有一个界面，需要先分别从两个网络接口获取数据，获取成功后，我们需要将两个接口数据进行特定的处理后再显示到UI界面上，应该怎么做？答案是`Future.wait`，它接受一个`Future数组参数`，只有数组中所有Future都执行成功后，才会触发then的成功回调，只要有一个Future执行失败，就会触发错误回调。下面，我们通过模拟Future.delayed 来模拟两个数据获取的异步任务，等两个异步任务都执行成功时  
 **async/await**  
 如果代码中有大量异步逻辑，并且出现大量异步任务依赖其它异步任务的结果时，必然会出现Future.then回调中套回调情况。举个例子，比如现在有个需求场景是用户先登录，登录成功后会获得用户ID，然后通过用户ID，再去请求用户个人信息，获取到用户个人信息后，为了使用方便，我们需要将其缓存在本地文件系统，代码如下：
-        
+```dart
     //先分别定义各个异步任务
     Future<String> login(String userName, String pwd){
         ...
@@ -54,8 +54,10 @@ Future与JavaScript中的Promise非常相似，表示一个异步操作的最终
         // 保存用户信息 
     };
 
-接下来，执行整个任务流：  
+```
 
+接下来，执行整个任务流：  
+```dart
     login("alice","******").then((id){
          //登录成功后通过，id获取用户信息    
      getUserInfo(id).then((userInfo){
@@ -66,9 +68,9 @@ Future与JavaScript中的Promise非常相似，表示一个异步操作的最终
         });
       });
     })
-
+```
 **使用Future消除Callback Hell**
-
+```dart
     login("alice","******").then((id){
           return getUserInfo(id);
     }).then((userInfo){
@@ -79,13 +81,14 @@ Future与JavaScript中的Promise非常相似，表示一个异步操作的最终
       //错误处理  
       print(e);
     });
+```
 
 正如上文所述， “Future 的所有API的返回值仍然是一个Future对象，所以可以很方便的进行链式调用” ，如果在then中返回的是一个Future的话，该future会执行，执行结束后会触发后面的then回调，这样依次向下，就避免了层层嵌套。
 
-**使用async/await消除callback hell**
+**使用async/await消除callback hell**  
 通过Future回调中再返回Future的方式虽然能避免层层嵌套，但是还是有一层回调，有没有一种方式能够让我们可以像写同步代码那样来执行异步任务而不使用回调的方式？答案是肯定的，这就要使用async/await了，下面我们先直接看代码，然后再解释，代码如下：
-
-    task() async {
+```dart
+task() async {
        try{
         String id = await login("alice","******");
         String userInfo = await getUserInfo(id);
@@ -96,6 +99,7 @@ Future与JavaScript中的Promise非常相似，表示一个异步操作的最终
         print(e);   
        }  
     }
+```
 - async用来表示函数是异步的，定义的函数会返回一个Future对象，可以使用then方法添加回调函数。
 - await 后面是一个Future，表示等待该异步任务完成，异步完成后才会往下走；await必须出现在 async 函数内部。
 
@@ -144,6 +148,157 @@ ListView 一个children属性，包含多个子项。垂直控件多个，可以
 Row 水平控件多个
 Align,Center,Container 只能存放一个控件
 
+**对齐方式**  
++ crossAxisAlignment 横轴（横向，水平）方向
++ MainAxisAlignment 主轴（垂直）方向
+
+**stack**  
+类似于Android layout的FrameLayout。  
+```dart
+Stack(
+        this.alignment = AlignmentDirectional.topStart,
+        this.textDirection,
+        this.fit = StackFit.loose,
+        this.overflow = Overflow.clip,
+        List<Widget> children = const <Widget>[],
+    )
+```
+
+## Padding
+
+Padding可以给其子节点添加补白（填充），我们在前面很多示例中都已经使用过它了，现在来看看它的定义：
+
+```dart
+Padding({
+  ...
+  EdgeInsetsGeometry padding,
+  Widget child,
+})
+```
+
+EdgeInsetsGeometry是一个抽象类，开发中，我们一般都使用EdgeInsets，它是EdgeInsetsGeometry的一个子类，定义了一些设置补白的便捷方法。
+
+### EdgeInsets
+
+我们看看EdgeInsets提供的便捷方法：
+
+- `fromLTRB(double left, double top, double right, double bottom) `：分别指定四个方向的补白。
+- `all(double value)` : 所有方向均使用相同数值的补白。
+- `only({left, top, right ,bottom })`：可以设置具体某个方向的补白(可以同时指定多个方向)。
+- `symmetric({  vertical, horizontal })`：用于设置对称方向的补白，vertical指top和bottom，horizontal指left和right。
+
+## ConstrainedBox和SizedBox 布局限制
+ConstrainedBox和SizedBox都是通过RenderConstrainedBox来渲染的。SizedBox只是ConstrainedBox的一个定制
+
+### ConstrainedBox
+ConstrainedBox用于对子widget添加额外的约束。例如，如果你想让子widget的最小高度是80像素，你可以使用`const BoxConstraints(minHeight: 80.0)`作为子widget的约束。
+
+#### BoxConstraints
+BoxConstraints用于设置限制条件，它的定义如下：
+```dart
+const BoxConstraints({
+  this.minWidth = 0.0, //最小宽度
+  this.maxWidth = double.infinity, //最大宽度
+  this.minHeight = 0.0, //最小高度
+  this.maxHeight = double.infinity //最大高度
+})
+```
+### SizedBox
+SizedBox用于给子widget指定固定的宽高
+```dart
+SizedBox(
+  width: 80.0,
+  height: 80.0,
+  child: redBox
+)
+```
+### BoxDecoration
+我们通常会直接使用BoxDecoration，它是一个Decoration的子类，实现了常用的装饰元素的绘制。
+```dart
+BoxDecoration({
+  Color color, //颜色
+  DecorationImage image,//图片
+  BoxBorder border, //边框
+  BorderRadiusGeometry borderRadius, //圆角
+  List<BoxShadow> boxShadow, //阴影,可以指定多个
+  Gradient gradient, //渐变
+  BlendMode backgroundBlendMode, //背景混合模式
+  BoxShape shape = BoxShape.rectangle, //形状
+})
+```
+### 导航返回拦截WillPopScope
+```dart
+const WillPopScope({
+  ...
+  @required WillPopCallback onWillPop,
+  @required Widget child
+})
+```
+onWillPop是一个回调函数，当用户点击返回按钮时调用（包括导航返回按钮及Android物理返回按钮），
+该回调需要返回一个Future对象，如果返回的Future最终值为false时，则当前路由不出栈(不会返回)，
+最终值为true时，当前路由出栈退出。我们需要提供这个回调来决定是否退出。
+
+### 页面跳转
+```dart
+Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+  return new ScaffoldWidget();
+}));
+
+```
+
+### Transform变换
+
+#### 平移
+`Transform.translate`接收一个offset参数，可以在绘制时沿x、y轴对子widget平移指定的距离。
+```dart
+DecoratedBox(
+  decoration:BoxDecoration(color: Colors.red),
+  //默认原点为左上角，左移20像素，向上平移5像素  
+  child: Transform.translate(
+    offset: Offset(-20.0, -5.0),
+    child: Text("Hello world"),
+  ),
+)
+```
+#### 旋转
+`Transform.rotate`可以对子widget进行旋转变换。
+```dart
+DecoratedBox(
+  decoration:BoxDecoration(color: Colors.red),
+  child: Transform.rotate(
+    //旋转90度
+    angle:math.pi/2 ,
+    child: Text("Hello world"),
+  ),
+)
+```
+#### 缩放
+`Transform.scale`可以对子Widget进行缩小或放大。
+```dart
+DecoratedBox(
+  decoration:BoxDecoration(color: Colors.red),
+  child: Transform.scale(
+      scale: 1.5, //放大到1.5倍
+      child: Text("Hello world")
+  )
+)
+```
++ Transform的变换是应用在绘制阶段，而并不是应用在布局(layout)阶段，所以无论对子widget应用何种变化，其占用空间的大小和在屏幕上的位置都是固定不变的，因为这些是在布局阶段就确定的。
+```dart
+ Row(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: <Widget>[
+    DecoratedBox(
+      decoration:BoxDecoration(color: Colors.red),
+      child: Transform.scale(scale: 1.5,
+          child: Text("Hello world")
+      )
+    ),
+    Text("你好", style: TextStyle(color: Colors.green, fontSize: 18.0),)
+  ],
+)
+```
+
 **本地图片加载配置与实现**  
 在pubspec.yaml 文件中flutter: 节点增加  
     
@@ -156,18 +311,6 @@ Align,Center,Container 只能存放一个控件
 **嵌套行和列**  
 为了最大限度地减少高度嵌套的布局代码可能导致的视觉混乱，可以在变量和函数中实现 UI 的各个部分。  
 
-**stack**  
-类似于Android layout的FrameLayout。  
-    
-    Stack(
-        this.alignment = AlignmentDirectional.topStart,
-        this.textDirection,
-        this.fit = StackFit.loose,
-        this.overflow = Overflow.clip,
-        List<Widget> children = const <Widget>[],
-    )
-    
-    
 **代码块**
 
     void main() {
