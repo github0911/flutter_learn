@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
+import 'dart:math' as math;
+
+import 'scaffold_widget.dart';
 
 ///流式布局
 class WrapLayoutRoute extends StatelessWidget {
@@ -38,12 +41,80 @@ class WrapLayoutRoute extends StatelessWidget {
             Chip(
               label: Text('four'),
               deleteIconColor: Colors.red,
-              onDeleted: () {},
+              onDeleted: () {
+                Navigator.of(context)
+                    .push(new MaterialPageRoute(builder: (context) {
+                  return new ScaffoldWidget();
+                }));
+              },
               deleteIcon: Icon(Icons.delete),
               avatar: CircleAvatar(
                 backgroundColor: Colors.green,
                 child: Text('4'),
               ),
+            ),
+            SizedBox(
+              height: 25,
+              width: 25,
+              child: CircularProgressIndicator(
+                strokeWidth: 1,
+                valueColor: AlwaysStoppedAnimation(Colors.redAccent[400]),
+              ),
+            ),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Transform.rotate(
+                // 旋转 rotate
+                child: Text('Hello Flutter'),
+                angle: math.pi / 2,
+              ),
+            ),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                color: Colors.lightGreenAccent,
+              ),
+              child: Transform.translate(
+                // 平移
+                child: Text('translate'),
+                offset: Offset(-10, 0),
+              ),
+            ),
+            DecoratedBox(
+                decoration: BoxDecoration(color: Colors.red),
+                child: Transform.scale(
+                    scale: 1.5, //放大到1.5倍
+                    child: Text("Hello world"))),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                DecoratedBox(
+                    decoration: BoxDecoration(color: Colors.red),
+                    child: Transform.scale(
+                        scale: 1.5, child: Text("Hello world"))),
+                Text(
+                  "你好",
+                  style: TextStyle(color: Colors.green, fontSize: 18.0),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                DecoratedBox(
+                  decoration: BoxDecoration(color: Colors.red),
+                  //将Transform.rotate换成RotatedBox
+                  child: RotatedBox(
+                    quarterTurns: 3, //旋转90度(1/4圈)
+                    child: Text("Hello world"),
+                  ),
+                ),
+                Text(
+                  "你好",
+                  style: TextStyle(color: Colors.green, fontSize: 18.0),
+                )
+              ],
             ),
           ],
         ),
@@ -68,8 +139,9 @@ class WrapWillPopScopeLayoutRouteState
     return WillPopScope(
         child: WrapLayoutRoute(),
         onWillPop: () async {
-          if (_lastPressedAt == null
-              || DateTime.now().difference(_lastPressedAt) > Duration(seconds: 1)) {
+          if (_lastPressedAt == null ||
+              DateTime.now().difference(_lastPressedAt) >
+                  Duration(seconds: 1)) {
             showToast('再按一次，退出应用', radius: 0);
             // 不出栈
             return false;
