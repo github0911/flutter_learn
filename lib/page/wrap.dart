@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oktoast/oktoast.dart';
 
 ///流式布局
 class WrapLayoutRoute extends StatelessWidget {
@@ -48,5 +49,33 @@ class WrapLayoutRoute extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class WrapWillPopScopeLayoutRoute extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return new WrapWillPopScopeLayoutRouteState();
+  }
+}
+
+class WrapWillPopScopeLayoutRouteState
+    extends State<WrapWillPopScopeLayoutRoute> {
+  DateTime _lastPressedAt;
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+        child: WrapLayoutRoute(),
+        onWillPop: () async {
+          if (_lastPressedAt == null
+              || DateTime.now().difference(_lastPressedAt) > Duration(seconds: 1)) {
+            showToast('再按一次，退出应用', radius: 0);
+            // 不出栈
+            return false;
+          }
+          // 出栈
+          return true;
+        });
   }
 }

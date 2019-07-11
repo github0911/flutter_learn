@@ -9,8 +9,10 @@ import 'page/network.dart';
 import 'page/pages.dart';
 import 'page/list_page.dart';
 import 'page/stack_page.dart';
+import 'page/flex.dart';
+import 'page/wrap.dart';
 
-void main() => runApp(PagesApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -34,16 +36,16 @@ class MyApp extends StatelessWidget {
 //      home: MyHomePage(title: "Hello Flutter"),
 //      home: CustomForm(),
 //        home: Frosted(),
-        home: ScaffoldWidget(),
-//        home: new Scaffold(
-//          appBar: new AppBar(
-//            title: new Text("Welcome to flutter"),
-//          ),
-//          body: new Center(
-//            child: new RandomWords(),
-////            child: new MyHomePage(title: "Hello Flutter",),
-//          ),
-//        )
+//        home: FlexLayoutRoute(),
+        home: new Scaffold(
+          appBar: new AppBar(
+            title: new Text("Welcome to flutter"),
+          ),
+          body: new Center(
+            child: new WrapWillPopScopeLayoutRoute(),
+//            child: new MyHomePage(title: "Hello Flutter",),
+          ),
+        )
       ),
 
     );
