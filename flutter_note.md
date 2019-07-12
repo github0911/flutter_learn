@@ -332,6 +332,13 @@ plugins
 如果要升级到软件包的新版本，例如使用该软件包中的新功能，请运行flutter packages upgrade（在IntelliJ中点击Upgrade dependencies）。 
 这将根据您在pubspec.yaml中指定的版本约束下载所允许的最高可用版本。
 
+### Building and installing the Flutter app
+- cd $FLUTTER_ROOT/examples/flutter_gallery
+- flutter pub get
+- flutter run --release
+
+The flutter run --release command both builds and installs the Flutter app.
+
 [oktoast]("https://www.kikt.top/posts/flutter/toast/oktoast/#%E6%96%87%E6%9C%AC-toast")  
 [oktoast接入官方示例]("https://pub.dev/packages/oktoast#-example-tab-")  
 默认圆角为10，显示时长为2.3s。
