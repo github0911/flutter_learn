@@ -3,6 +3,7 @@ import 'package:oktoast/oktoast.dart';
 import 'dart:math' as math;
 
 import 'scaffold_widget.dart';
+import 'progress_indicator.dart';
 
 ///流式布局
 class WrapLayoutRoute extends StatelessWidget {
@@ -32,7 +33,11 @@ class WrapLayoutRoute extends StatelessWidget {
             ),
             Chip(
               label: Text('three'),
-              onDeleted: () {},
+              onDeleted: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                  return new ProgressIndicatorRoute();
+                }));
+              },
               avatar: CircleAvatar(
                 backgroundColor: Colors.blue,
                 child: Text('3'),
