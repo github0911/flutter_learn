@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oktoast/oktoast.dart';
 
 class ProgressIndicatorRoute extends StatefulWidget {
   @override
@@ -124,6 +125,20 @@ class ProgressIndicatorRouteState extends State<ProgressIndicatorRoute>
           'Progress Indicator',
           style: TextStyle(color: Colors.black,),
         ),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: GestureDetector(
+              onTap: () {
+                showToast('edit', radius: 0);
+              },
+              child: Icon(
+                Icons.edit,
+                color: Colors.black,
+              ),
+            )
+          ),
+        ],
       ),
       body: Center(
         child: SingleChildScrollView(
