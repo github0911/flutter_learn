@@ -196,6 +196,7 @@ class WrapWillPopScopeLayoutRouteState
               DateTime.now().difference(_lastPressedAt) >
                   Duration(seconds: 1)) {
             showToast('再按一次，退出应用', radius: 0);
+            _lastPressedAt = DateTime.now();
             // 不出栈
             return false;
           }
