@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:oktoast/oktoast.dart';
+import 'cupertino_text_field.dart';
+
 
 class ScaffoldWidget extends StatefulWidget {
   @override
@@ -176,6 +178,9 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget> {
                   //富文本
                   child: GestureDetector(
                     onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                        return new CupertinoTextFieldRoute();
+                      }));
                       showToast("RichText");
                     },
                     onLongPress: () {
