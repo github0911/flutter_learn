@@ -11,6 +11,7 @@ import 'page/list_page.dart';
 import 'page/stack_page.dart';
 import 'page/flex.dart';
 import 'page/wrap.dart';
+import 'page/staggered_grid_view.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,13 +34,14 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.blue,
         ),
-//      home: MyHomePage(title: "Hello Flutter"),
+//      home: MyHomePage(title: "Hello Flutter"),rrrrrr
 //      home: CustomForm(),
 //        home: Frosted(),
 //        home: FlexLayoutRoute(),
         home: new Scaffold(
           appBar: new AppBar(
             title: new Text("Welcome to flutter"),
+            brightness: Brightness.dark,
           ),
           body: new Center(
             child: new WrapWillPopScopeLayoutRoute(),

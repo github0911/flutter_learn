@@ -311,6 +311,19 @@ DecoratedBox(
 **嵌套行和列**  
 为了最大限度地减少高度嵌套的布局代码可能导致的视觉混乱，可以在变量和函数中实现 UI 的各个部分。  
 
+### 点击事件处理
+
+注意： 当同时监听onTap和onDoubleTap事件时，当用户触发tap事件时，会有200毫秒左右的延时，
+这是因为当用户点击完之后很可能会再次点击以触发双击事件，所以GestureDetector会等一段时间来确定是否为双击事件。
+如果用户只监听了onTap（没有监听onDoubleTap）事件时，则没有延时。
+
+### 动画通知
+
+我们可以通过Animation来监听动画的帧和状态变化：
+
+- addListener()可以给Animation添加帧监听器，在每一帧都会被调用。帧监听器中最常见的行为是改变状态后调用setState()来触发UI重建。
+- addStatusListener()可以给Animation添加“动画状态改变”监听器；动画开始、结束、正向或反向（见AnimationStatus定义）时会调用StatusListener。
+
 **代码块**
 
     void main() {
@@ -339,6 +352,34 @@ plugins
 
 The flutter run --release command both builds and installs the Flutter app.
 
+[Add Flutter to existing apps]("https://www.jianshu.com/p/7c1a2dc27a80")
+[Add Flutter to existing apps]("https://github.com/flutter/flutter/wiki/Add-Flutter-to-existing-apps")
+
+1. 在 Android 原生的项目基础中，如何集成 Flutter
+
+打开你的项目，找到 Terminal，输入终端命令：flutter channel
+
+如果输出如下：
+
+1、我们需要切换到 master 分支，继续输入终端命令：flutter channel master，
+2、等待执行完毕之后，我们就成功的切换到了 master 分支。为什么要切换到 master 分支？
+3、因为我们在安装 Flutter 的时候，默认安装的是 beta 版本。
+4、该版本，目前是不支持在现有项目中集成 Flutter Module 模块功能的。
+5、如果在 beta 版本中，执行了创建 Module 命令：flutter create -t module 你要创建的库的名字，
+6、它会提示你 “module” is not an allowed value for option “template” 。
+
+执行终端命令，创建你的 Flutter Library：flutter create -t module flutter_library
+
+等待执行，创建成功后，会如下所示：
+
+注意：命令中的 flutter_library, 是我对 Flutter Library 的命名。你可以替换为你的命名。
+
+将 flutter_library 添加到 Android 工程
+
+找到 Project 层 setting.gradle 文件并打开，添加如下代码：
+
+编译通过后，在 app 目录下的 build.gradle，添加依赖：
+
 [oktoast]("https://www.kikt.top/posts/flutter/toast/oktoast/#%E6%96%87%E6%9C%AC-toast")  
 [oktoast接入官方示例]("https://pub.dev/packages/oktoast#-example-tab-")  
 默认圆角为10，显示时长为2.3s。
@@ -346,3 +387,4 @@ The flutter run --release command both builds and installs the Flutter app.
 [Notebook]("https://github.com/OpenFlutter/Flutter-Notebook")  
 [Flutter快速上车之Widget]("https://www.yuque.com/xytech/flutter/hc0xq7")  
 [Flutter入门总结]("https://www.yuque.com/chenshier/chuyi/wtoyoq#43c760ef")
+[Flutter_Project]("https://github.com/CarGuo/GSYGithubAppFlutter")
