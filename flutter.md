@@ -14,6 +14,7 @@ UI框架
 路由管理
 ==
 - fluro  [fluro 1.5.1](https://pub.dartlang.org/packages/fluro)
+- annotation_route [annotation_route 0.0.2](https://pub.dev/packages/annotation_route)
 
 键盘处理
 ==
@@ -31,23 +32,23 @@ shared_preferences
 ==
 - shared_preferences [shared_preferences 0.5.3+4](https://pub.dev/packages/shared_preferences)
 
-flutter_sticky_header
+flutter_sticky_header(头部悬停)
 ==
 - flutter_sticky_header [flutter_sticky_header 0.4.0](https://pub.dev/packages/flutter_sticky_header)
 
-flutter_easyrefresh
+flutter_easyrefresh(列表刷新)
 ==
 - flutter_easyrefresh [flutter_easyrefresh 1.2.7](https://pub.dev/packages/flutter_easyrefresh)
 
-badges
+badges(数字提示)
 ==
 - badges [badges 1.1.0](https://pub.dev/packages/badges)
 
-azlistview
+azlistview(通讯录，联系人列表)
 ==
 - azlistview  [azlistview 0.1.2](https://pub.dev/packages/azlistview)
 
-gallery
+gallery(官方示例)
 ==
 ```
 dependencies:
