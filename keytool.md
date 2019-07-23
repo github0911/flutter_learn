@@ -7,6 +7,11 @@ keytool -genkey -v -keystore key.keystore -alias xinyan -keyalg RSA -validity 10
 # jks
 keytool -genkey -v -keystore E:/project/beenest/android/app/key.jks -keyalg RSA -keysize 2048 -validity 30000
 
+proguard-rules.pro 增加混淆配置时需要增加
+-dontwarn io.flutter.** 对应的包 在minifyEnable为true时，不然会出现异常  
+[Error building APK when minifyEnabled true](https://stackoverflow.com/questions/33589318/error-building-apk-when-minifyenabled-true)
+
+[Fixing AndroidX crashes in a Flutter app](https://flutter.dev/docs/development/packages-and-plugins/androidx-compatibility)
 
 ```
 -certreq            生成证书请求
