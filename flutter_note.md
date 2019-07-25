@@ -164,8 +164,15 @@ Stack(
     )
 ```
 
-## Padding
+### Positioned 
+- A widget that controls where a child of a [Stack] is positioned.
+- 用于stack布局控制的widget
 
+#### 容器类Widget和布局类Widget都作用于其子Widget，不同的是：
+- 布局类Widget一般都需要接收一个widget数组（children），他们直接或间接继承自（或包含）MultiChildRenderObjectWidget ；而容器类Widget一般只需要接收一个子Widget（child），他们直接或间接继承自（或包含）SingleChildRenderObjectWidget。
+- 布局类Widget是按照一定的排列方式来对其子Widget进行排列；而容器类Widget一般只是包装其子Widget，对其添加一些修饰（补白或背景色等）、变换(旋转或剪裁等)、或限制(大小等)。
+
+## Padding
 Padding可以给其子节点添加补白（填充），我们在前面很多示例中都已经使用过它了，现在来看看它的定义：
 
 ```dart
@@ -226,6 +233,10 @@ BoxDecoration({
   BoxShape shape = BoxShape.rectangle, //形状
 })
 ```
+### Expanded
+`Expanded widgets must be placed directly inside Flex widgets.`
+- Expanded只能作为flex及其子类widget中。
+
 ### 导航返回拦截WillPopScope
 ```dart
 const WillPopScope({
