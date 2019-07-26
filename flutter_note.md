@@ -399,3 +399,14 @@ The flutter run --release command both builds and installs the Flutter app.
 [Flutter快速上车之Widget]("https://www.yuque.com/xytech/flutter/hc0xq7")  
 [Flutter入门总结]("https://www.yuque.com/chenshier/chuyi/wtoyoq#43c760ef")
 [Flutter_Project]("https://github.com/CarGuo/GSYGithubAppFlutter")
+
+## flutter 开发环境异常处理
+[Dart snapshot generator failed with exit code -6||error: Failed to memory map snapshot](https://github.com/flutter/flutter/issues/21859)
+``` 
+git clean -xfd
+git stash save --keep-index
+git stash drop
+git pull
+flutter doctor
+```
+- 如果`flutter doctor`成功，但是运行flutter工程仍然失败，删除安装目录`flutter/bin/cache`文件夹。再重新执行`flutter doctor`更新sdk配置

@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return OKToast(
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,//是否显示右上角debug false 不显示 true 显示
         title: 'Hello Flutter',
         theme: ThemeData(
           // This is the theme of your application.
