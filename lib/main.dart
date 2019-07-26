@@ -12,6 +12,7 @@ import 'page/stack_page.dart';
 import 'page/flex.dart';
 import 'page/wrap.dart';
 import 'page/staggered_grid_view.dart';
+import 'page/sticky_header.dart';
 
 void main() => runApp(MyApp());
 
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.dark,
           ),
           body: new Center(
-            child: new WrapWillPopScopeLayoutRoute(),
+            child: WrapWillPopScopeLayoutRoute(),
 //            child: new MyHomePage(title: "Hello Flutter",),
           ),
         )

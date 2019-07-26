@@ -13,8 +13,7 @@ class FlexLayoutRoute extends StatelessWidget {
             height: 20,
           ),
         ),
-        Flex(
-          direction: Axis.horizontal,
+        Row(
           children: <Widget>[
             Expanded(
                 flex: 1,
