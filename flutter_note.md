@@ -106,6 +106,9 @@ task() async {
 可以看到，我们通过async/await将一个异步流用同步的代码表示出来了。
 >其实，无论是在JavaScript还是Dart中，async/await都只是一个语法糖，编译器或解释器最终都会将其转化为一个Promise（Future）的调用链。
 
+**stream**  
+[api&doc](https://dart.dev/tutorials/language/streams)
+
 Flutter所使用的Dart语言，没有类似Java的publice protect private，以_开头的变量、函数和类，意味着它仅在库中是可视的  
 在Dart中，当你不需要去改变一个变量的时候，应该使用final或者const，而不是使用var去声明一个变量。  
 一个final变量只允许被赋值一次，必须在定义时或者构造函数参数表中将其初始化。  
@@ -414,3 +417,6 @@ git pull
 flutter doctor
 ```
 - 如果`flutter doctor`成功，但是运行flutter工程仍然失败，删除安装目录`flutter/bin/cache`文件夹。再重新执行`flutter doctor`更新sdk配置
+- 如果出现Dart Analysis not terminated 进行缓存清除，重新安装依赖
+
+.. 在dart中是一种语法，不是操作符。如果返回的是void是无法使用的，只有返回的是
