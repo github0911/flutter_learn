@@ -108,6 +108,7 @@ task() async {
 
 **stream**  
 [api&doc](https://dart.dev/tutorials/language/streams)
+[全面深入理解Stream](https://juejin.im/post/5cc2acf86fb9a0321f042041)
 
 Flutter所使用的Dart语言，没有类似Java的publice protect private，以_开头的变量、函数和类，意味着它仅在库中是可视的  
 在Dart中，当你不需要去改变一个变量的时候，应该使用final或者const，而不是使用var去声明一个变量。  
