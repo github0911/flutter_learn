@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:rxdart/rxdart.dart';
 
 void main() {
   print("hello, world");
@@ -35,6 +36,9 @@ void main() {
   controller.sink.add(456);
   controller.sink.add(789);
   controller.sink.add(handleError);
+  controller.close();
+  bool tag = controller.isClosed;
+  print("close $tag" );
 
   StreamController<int> controller2 = StreamController<int>();
 
@@ -53,6 +57,7 @@ void main() {
       .listen((data) => print(data), onError: (err) => print(err));
 
   controller2.sink.add(23);
+  controller2.close();
 
   StreamController controller3 = StreamController();
   Stream stream3 = controller3.stream.asBroadcastStream(
@@ -68,6 +73,29 @@ void main() {
     print(data);
   });
   controller3.sink.add(987);
+  controller3.close();
+
+  // 初始化一个单订阅的Stream controller
+  final StreamController ctrl = StreamController();
+
+  // 初始化一个监听
+  final StreamSubscription subscription2 =
+      ctrl.stream.listen((data) => print('$data'));
+
+  // 往Stream中添加数据
+  ctrl.sink.add('my name');
+  ctrl.sink.add(1234);
+  ctrl.sink.add({'a': 'element A', 'b': 'element B'});
+  ctrl.sink.add(123.45);
+  ctrl.close();
+
+  // rxDart
+  Observable.fromIterable([11, 22]).listen((data) {
+    print(data);
+  });
+
+  TimerStream("hi", new Duration(seconds: 1))
+      .listen((i) => print(i)); // print "hi" after 1 minute
 }
 
 void handleData(data) {

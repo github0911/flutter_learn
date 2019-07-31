@@ -13,6 +13,8 @@ import 'page/flex.dart';
 import 'page/wrap.dart';
 import 'page/staggered_grid_view.dart';
 import 'page/sticky_header.dart';
+import 'package:flutter_app/widget/custom_multi_render_page.dart';
+import 'package:flutter_app/widget/custom_multi_render_demo_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -36,10 +38,10 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.blue,
         ),
-//      home: MyHomePage(title: "Hello Flutter"),rrrrrr
+//      home: MyHomePage(title: "Hello Flutter"),
 //      home: CustomForm(),
 //        home: Frosted(),
-//        home: FlexLayoutRoute(),
+//        home: CustomMultiRenderPage(),
         home: new Scaffold(
           appBar: new AppBar(
             title: new Text("Welcome to flutter"),
