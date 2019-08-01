@@ -421,3 +421,8 @@ flutter doctor
 - 如果出现Dart Analysis not terminated 进行缓存清除，重新安装依赖
 
 .. 在dart中是一种语法，不是操作符。如果返回的是void是无法使用的，只有返回的是
+
+**异常处理**
+- [couldn't find "libflutter.so"](https://juejin.im/post/5c3444116fb9a049e6606bc4)
+- No file or variants found for asset: assets/images. `images没有/结尾`。
+- [how-to-set-landscape-orientation-mode-for-flutter-app](https://stackoverflow.com/questions/51806662/how-to-set-landscape-orientation-mode-for-flutter-app)
