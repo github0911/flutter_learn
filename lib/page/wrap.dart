@@ -8,6 +8,14 @@ import 'progress_indicator.dart';
 
 ///流式布局
 class WrapLayoutRoute extends StatelessWidget {
+
+  static const jumpPlugin = const MethodChannel("com.xinyan.jump/plugin");
+  /// 跳转原生webView
+  Future<Null> _jumpNativeWebView() async {
+    String result = await jumpPlugin.invokeMethod("webView");
+    showToast(result);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -20,6 +28,9 @@ class WrapLayoutRoute extends StatelessWidget {
           children: <Widget>[
             Chip(
               label: Text('one'),
+              onDeleted: () {
+                _jumpNativeWebView();
+              },
               avatar: CircleAvatar(
                 backgroundColor: Colors.red,
                 child: Text('1'),

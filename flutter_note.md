@@ -408,6 +408,10 @@ The flutter run --release command both builds and installs the Flutter app.
 - [flutter_deer](https://github.com/simplezhli/flutter_deer)
 - [GSYGithubAppFlutter](https://github.com/CarGuo/GSYGithubAppFlutter)
 
+## 控件
+- [marquee_text](https://github.com/bytedance/marquee_text)
+- [RealRichText](https://github.com/bytedance/RealRichText)
+
 ## flutter 开发环境异常处理
 [Dart snapshot generator failed with exit code -6||error: Failed to memory map snapshot](https://github.com/flutter/flutter/issues/21859)
 ``` 
