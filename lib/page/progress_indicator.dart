@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:flutter/services.dart';
 
 class ProgressIndicatorRoute extends StatefulWidget {
   @override
@@ -12,6 +13,23 @@ class ProgressIndicatorRouteState extends State<ProgressIndicatorRoute>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation<double> _animation;
+
+  String _batteryLevel = "Battery Level";
+
+  static const getBatteryPlugin = const MethodChannel("flutter.plugin/battery");
+
+  Future<void> _getBatteryLevel() async {
+    String batteryLever;
+    try {
+      final int result = await getBatteryPlugin.invokeMethod("getBatteryLevel");
+      batteryLever = "Battery Level at $result";
+    } on PlatformException catch (e) {
+      batteryLever = "Failed to get battery level ${e.message}";
+    }
+    setState(() {
+      _batteryLevel = batteryLever;
+    });
+  }
 
   @override
   void initState() {
@@ -70,6 +88,7 @@ class ProgressIndicatorRouteState extends State<ProgressIndicatorRoute>
       LinearProgressIndicator(
         value: _animation.value,
       ),
+      Text(_batteryLevel, style: TextStyle(color: Colors.red, fontSize: 18),),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
@@ -131,6 +150,7 @@ class ProgressIndicatorRouteState extends State<ProgressIndicatorRoute>
             child: GestureDetector(
               onTap: () {
                 showToast('edit', radius: 0);
+                _getBatteryLevel();
               },
               child: Icon(
                 Icons.edit,
