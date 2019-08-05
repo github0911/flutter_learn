@@ -43,7 +43,7 @@ class Square implements Shape {
   num get area => pow(side, 2);
 }
 
-class CircleMock implements Circle{
+class CircleMock implements Circle {
   num radius;
   num area;
 }

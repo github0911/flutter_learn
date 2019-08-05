@@ -5,11 +5,12 @@ import 'package:flutter/services.dart';
 
 import 'scaffold_widget.dart';
 import 'progress_indicator.dart';
+import 'package:flutter_app/widget/head_widget.dart';
 
 ///流式布局
 class WrapLayoutRoute extends StatelessWidget {
-
   static const jumpPlugin = const MethodChannel("com.xinyan.jump/plugin");
+
   /// 跳转原生webView
   Future<Null> _jumpNativeWebView() async {
     String result = await jumpPlugin.invokeMethod("webView");
@@ -46,7 +47,8 @@ class WrapLayoutRoute extends StatelessWidget {
             Chip(
               label: Text('three'),
               onDeleted: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
                   return new ProgressIndicatorRoute();
                 }));
               },
@@ -161,25 +163,27 @@ class WrapLayoutRoute extends StatelessWidget {
               margin: EdgeInsets.only(top: 30, left: 60),
               constraints: BoxConstraints.tightFor(width: 180, height: 100),
               decoration: BoxDecoration(
-                gradient: RadialGradient(
-                  colors: [Colors.red, Colors.orange],
-                  center: Alignment.topLeft,
-                  radius: 0.98,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.orange[300],
-                    offset: Offset(2, 2),
-                    blurRadius: 3
+                  gradient: RadialGradient(
+                    colors: [Colors.red, Colors.orange],
+                    center: Alignment.topLeft,
+                    radius: 0.98,
                   ),
-                ]
-              ),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.orange[300],
+                        offset: Offset(2, 2),
+                        blurRadius: 3),
+                  ]),
               transform: Matrix4.rotationZ(0.2),
               alignment: Alignment.center,
               child: Text(
                 '7-11',
                 style: TextStyle(color: Colors.white, fontSize: 40),
               ),
+            ),
+            HeadWidget(
+              name: 'headhead',
+              hasNotice: true,
             ),
           ],
         ),

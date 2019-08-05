@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:english_words/english_words.dart';
 import 'page/custom_form.dart';
 import 'package:oktoast/oktoast.dart';
@@ -16,7 +17,14 @@ import 'page/sticky_header.dart';
 import 'package:flutter_app/widget/custom_multi_render_page.dart';
 import 'package:flutter_app/widget/custom_multi_render_demo_page.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+  // 竖屏显示
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -24,36 +32,34 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return OKToast(
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,//是否显示右上角debug false 不显示 true 显示
-        title: 'Hello Flutter',
-        theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
-          primarySwatch: Colors.blue,
-        ),
+          debugShowCheckedModeBanner: false, //是否显示右上角debug false 不显示 true 显示
+          title: 'Hello Flutter',
+          theme: ThemeData(
+            // This is the theme of your application.
+            //
+            // Try running your application with "flutter run". You'll see the
+            // application has a blue toolbar. Then, without quitting the app, try
+            // changing the primarySwatch below to Colors.green and then invoke
+            // "hot reload" (press "r" in the console where you ran "flutter run",
+            // or simply save your changes to "hot reload" in a Flutter IDE).
+            // Notice that the counter didn't reset back to zero; the application
+            // is not restarted.
+            primarySwatch: Colors.blue,
+          ),
 //      home: MyHomePage(title: "Hello Flutter"),
 //      home: CustomForm(),
 //        home: Frosted(),
 //        home: CustomMultiRenderPage(),
-        home: new Scaffold(
-          appBar: new AppBar(
-            title: new Text("Welcome to flutter"),
-            brightness: Brightness.dark,
-          ),
-          body: new Center(
-            child: WrapWillPopScopeLayoutRoute(),
+          home: new Scaffold(
+            appBar: new AppBar(
+              title: new Text("Welcome to flutter"),
+              brightness: Brightness.dark,
+            ),
+            body: new Center(
+              child: WrapWillPopScopeLayoutRoute(),
 //            child: new MyHomePage(title: "Hello Flutter",),
-          ),
-        )
-      ),
-
+            ),
+          )),
     );
 //    return MaterialApp(
 //        title: 'Hello Flutter',
@@ -155,10 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .display1,
+              style: Theme.of(context).textTheme.display1,
             ),
           ],
         ),
@@ -184,7 +187,6 @@ class RandomWordsState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
   final _biggerFont = const TextStyle(fontSize: 19.0);
   final _saved = new Set<WordPair>();
-
 
   @override
   Widget build(BuildContext context) {
