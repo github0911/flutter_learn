@@ -185,6 +185,12 @@ class WrapLayoutRoute extends StatelessWidget {
               name: 'headhead',
               hasNotice: true,
             ),
+            RangeSlider(
+              values: RangeValues(1, 1),
+              min: 1,
+              max: 100,
+              onChanged: (RangeValues rangeValues) {},
+            ),
           ],
         ),
       ],

@@ -35,6 +35,8 @@ dependencies:
   lpinyin: 1.0.7
   shared_preferences: 0.5.3+4
   rxdart: ^0.22.1
+  # 微信授权登录，分享
+  fluwx: 1.0.4
 
 dev_dependencies:
   flutter_test:

@@ -48,6 +48,14 @@ azlistview(通讯录，联系人列表)
 ==
 - azlistview  [azlistview 0.1.2](https://pub.dev/packages/azlistview)
 
+qq登录
+==
+- QQ登录 [flutter_qq](https://pub.dev/packages/flutter_qq)
+
+微信登录
+==
+- 微信登录 [fluwx](https://pub.dev/packages/fluwx)
+
 gallery(官方示例)
 ==
 ```

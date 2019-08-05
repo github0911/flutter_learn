@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:english_words/english_words.dart';
-import 'page/custom_form.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:fluwx/fluwx.dart' as fluwx;
+import 'page/custom_form.dart';
 import 'widget/frosted.dart';
 import 'page/scaffold_widget.dart';
 import 'page/route_data.dart';
@@ -24,6 +25,12 @@ void main() {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  _initFluwx();
+}
+
+void _initFluwx() async {
+  await fluwx.register(appId: "");
+  var result = await fluwx.isWeChatInstalled();
 }
 
 class MyApp extends StatelessWidget {

@@ -6,13 +6,16 @@ class HeadWidget extends StatefulWidget {
   final bool hasNotice;
   final String iconUrl;
   final bool isShowBorder;
+  final Color borderColor;
 
-  const HeadWidget(
-      {this.name: "",
-      this.isCircle: true,
-      this.hasNotice: false,
-      this.iconUrl,
-      this.isShowBorder: false});
+  const HeadWidget({
+    this.name: "",
+    this.isCircle: true,
+    this.hasNotice: false,
+    this.iconUrl,
+    this.isShowBorder: false,
+    this.borderColor: Colors.white,
+  });
 
   @override
   HeadWidgetState createState() {
@@ -101,7 +104,7 @@ class HeadWidgetState extends State<HeadWidget> {
   BoxDecoration _getBoxDecoration(bool isShowBorder) {
     return isShowBorder
         ? BoxDecoration(
-            color: Colors.pinkAccent, // border color
+            color: widget.borderColor, // border color
             shape: BoxShape.circle,
           )
         : BoxDecoration();
