@@ -423,6 +423,15 @@ flutter doctor
 ```
 - 如果`flutter doctor`成功，但是运行flutter工程仍然失败，删除安装目录`flutter/bin/cache`文件夹。再重新执行`flutter doctor`更新sdk配置
 - 如果出现Dart Analysis not terminated 进行缓存清除，重新安装依赖
+flutter Resolving dependencies...[flutter Resolving dependencies...](https://stackoverflow.com/questions/50145415/flutter-get-stuck-at-resolving-dependencies-for-android/53943887)
+```
+1. go to this folder ::  "your_project_folder/android/"
+2. delete ".gradle"
+3. open cmd in that directory 
+4. type ".\gradlew" in cmd 
+```
+`删除本地工程目录下的.gradle文件夹，命令行运行.\gradlew（windows）`
+
 
 .. 在dart中是一种语法，不是操作符。如果返回的是void是无法使用的，只有返回的是
 
