@@ -39,6 +39,8 @@ dependencies:
   fluwx: 1.0.4
   umeng_analytics:
     path: plugin/umeng_analytics
+  # 数据结构协议 https://github.com/dart-lang/protobuf
+  protobuf: 0.13.15
 
 dev_dependencies:
   flutter_test:
