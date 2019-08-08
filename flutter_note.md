@@ -447,3 +447,12 @@ flutter Resolving dependencies...[flutter Resolving dependencies...](https://sta
 - [couldn't find "libflutter.so"](https://juejin.im/post/5c3444116fb9a049e6606bc4)
 - No file or variants found for asset: assets/images. `images没有/结尾`。
 - [how-to-set-landscape-orientation-mode-for-flutter-app](https://stackoverflow.com/questions/51806662/how-to-set-landscape-orientation-mode-for-flutter-app)
+
+
+## dart protobuf_plugin 配置（Windows）
+- [下载](https://developers.google.com/protocol-buffers/docs/cpptutorial#compiling-your-protocol-buffers)
+- [releases版本](https://github.com/protocolbuffers/protobuf/releases/tag/v3.9.1)
+- step1 下载完之后解包。配置bin到环境变量中。这是配置protoc，命令行运行protoc是否配置正常  
+- step2 配置pub环境变量，在flutter目录flutter\bin\cache\dart-sdk\bin配置到环境变量中，命令行运行pub是否正常
+- step3 运行pub global activate protoc_plugin 启用protoc插件 会在C:\Users\just_\AppData\Roaming\Pub\Cache\bin目录下更新一个protoc-gen-dart.bat文件
+- step4 配置C:\Users\just_\AppData\Roaming\Pub\Cache\bin到环境变量中

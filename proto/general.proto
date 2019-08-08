@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package com.xinyan.beenest.api.general;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "pb";
+
+service General {
+    // 手机密码/手机短信登录
+    rpc LoginWithMobile(LoginWithMobileReq) returns (LoginResp);
+    // 补全资料: 修改密码, 昵称
+    rpc CompletionUserInfo(CompletionUserInfoReq) returns (.google.protobuf.Empty);
+    // QQ登录
+    rpc LoginWithQQ(LoginWithQQReq) returns (LoginResp);
+    // 微信登录
+    rpc LoginWithWX(LoginWithWXReq) returns (LoginResp);
+    // 补全手机号码
+    rpc UpdateMobile(UpdateMobileReq) returns (.google.protobuf.Empty);
+    // 重置密码
+    rpc ResetPassword(ResetPasswordReq) returns (.google.protobuf.Empty);
+
+    // 发送短信验证码登录
+    rpc SendSmsCodeForLogin(SendSmsCodeReq) returns (.google.protobuf.Empty);
+    // 发送短信验证码来找回密码
+    rpc SendSmsCodeForResetPwd(SendSmsCodeReq) returns (.google.protobuf.Empty);
+    // 发送电子邮箱验证码来找回密码
+    rpc SendEmailCodeForResetPwd(SendEmailCodeReq) returns (.google.protobuf.Empty);
+}
+
+message LoginWithMobileReq {
+    string mobile = 1;
+    string code = 2;
+    string password = 3;
+}
+
+message LoginWithEmailReq {
+    string email = 1;
+	string code = 2;
+}
+
+message LoginWithQQReq {
+    string openID = 1;
+}
+
+message LoginWithWXReq {
+    string openID = 1;
+}
+
+message LoginResp {
+	int64 id = 1;
+    string name = 2;
+    string token = 3;
+    int64 expiredAt = 4;
+    string lack = 5; // 缺少资料: nickname | mobile | 空
+}
+
+message CompletionUserInfoReq {
+    string nickName = 1;
+    string password = 2;
+}
+
+message UpdateMobileReq {
+    string mobile = 1;
+    string code = 2;
+}
+
+message ResetPasswordReq {
+    string mobile = 1;
+    string email = 2;
+    string code = 3;
+}
+
+message SendEmailCodeReq {
+    string email = 1;
+}
+
+message SendSmsCodeReq {
+    string mobile = 1;
+}
