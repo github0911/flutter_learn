@@ -37,6 +37,8 @@ dependencies:
   rxdart: ^0.22.1
   # 微信授权登录，分享
   fluwx: 1.0.4
+  umeng_analytics:
+    path: plugin/umeng_analytics
 
 dev_dependencies:
   flutter_test:

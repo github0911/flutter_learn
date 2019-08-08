@@ -25,7 +25,7 @@ void main() {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  _initFluwx();
+//  _initFluwx();
 }
 
 void _initFluwx() async {

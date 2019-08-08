@@ -29,86 +29,16 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.14.11"
-  cupertino_icons:
-    dependency: "direct main"
-    description:
-      name: cupertino_icons
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.2"
-  english_words:
-    dependency: "direct main"
-    description:
-      name: english_words
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.1.5"
-  fixnum:
-    dependency: "direct main"
-    description:
-      name: fixnum
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.10.9"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_datetime_picker:
-    dependency: "direct main"
-    description:
-      name: flutter_datetime_picker
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.2.4"
-  flutter_staggered_grid_view:
-    dependency: "direct main"
-    description:
-      name: flutter_staggered_grid_view
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.2.7"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
-  fluwx:
-    dependency: "direct main"
-    description:
-      name: fluwx
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.4"
-  http:
-    dependency: "direct main"
-    description:
-      name: http
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.12.0+2"
-  http_parser:
-    dependency: transitive
-    description:
-      name: http_parser
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.1.3"
-  logging:
-    dependency: "direct main"
-    description:
-      name: logging
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.11.3+2"
-  lpinyin:
-    dependency: "direct main"
-    description:
-      name: lpinyin
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.7"
   matcher:
     dependency: transitive
     description:
@@ -123,13 +53,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.6"
-  oktoast:
-    dependency: "direct main"
-    description:
-      name: oktoast
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.1.9"
   path:
     dependency: transitive
     description:
@@ -151,27 +74,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.3"
-  rxdart:
-    dependency: "direct main"
-    description:
-      name: rxdart
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.22.1"
-  scoped_model:
-    dependency: "direct main"
-    description:
-      name: scoped_model
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.1"
-  shared_preferences:
-    dependency: "direct main"
-    description:
-      name: shared_preferences
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.5.3+4"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -191,13 +93,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.9.3"
-  sticky_headers:
-    dependency: "direct main"
-    description:
-      name: sticky_headers
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.8"
   stream_channel:
     dependency: transitive
     description:
@@ -233,13 +128,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.6"
-  umeng_analytics:
-    dependency: "direct main"
-    description:
-      path: "plugin\\umeng_analytics"
-      relative: true
-    source: path
-    version: "0.0.1"
   vector_math:
     dependency: transitive
     description:
@@ -249,4 +137,3 @@ packages:
     version: "2.0.8"
 sdks:
   dart: ">=2.2.2 <3.0.0"
-  flutter: ">=1.5.0 <2.0.0"

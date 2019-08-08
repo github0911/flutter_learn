@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'scaffold_widget.dart';
 import 'progress_indicator.dart';
 import 'package:flutter_app/widget/head_widget.dart';
+import 'package:umeng_analytics/umeng_analytics.dart';
 
 ///流式布局
 class WrapLayoutRoute extends StatelessWidget {
@@ -19,6 +20,7 @@ class WrapLayoutRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: <Widget>[
         Wrap(
@@ -208,11 +210,39 @@ class WrapWillPopScopeLayoutRoute extends StatefulWidget {
 class WrapWillPopScopeLayoutRouteState
     extends State<WrapWillPopScopeLayoutRoute> {
   DateTime _lastPressedAt;
+  String _platformVersion = 'Unknown';
+  @override
+  void initState() {
+    super.initState();
+    initPlatformState();
+  }
+
+  Future<void> initPlatformState() async {
+    String platformVersion;
+    try {
+      platformVersion = await UmengAnalytics.platformVersion;
+    } on PlatformException {
+      platformVersion = 'Failed to get platform version.';
+    }
+
+    setState(() {
+      _platformVersion = platformVersion;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        child: WrapLayoutRoute(),
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(10),
+              color: Colors.deepOrange,
+              child: Text(_platformVersion),
+            ),
+            WrapLayoutRoute(),
+          ],
+        ),
         onWillPop: () async {
           if (_lastPressedAt == null ||
               DateTime.now().difference(_lastPressedAt) >
