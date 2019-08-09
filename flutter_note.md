@@ -461,3 +461,6 @@ flutter Resolving dependencies...[flutter Resolving dependencies...](https://sta
 [Flutter ❤ GRPC](https://medium.com/flutter-community/flutter-grpc-810f87612c6d)
 [flutter-grpc-tutorial](https://github.com/amsokol/flutter-grpc-tutorial)
 [grpc-dart](https://github.com/grpc/grpc-dart)
+
+## dart bool 转换parse
+[bool parse](https://stackoverflow.com/questions/21133935/in-dart-is-there-a-parse-for-bool-as-there-is-for-int)
