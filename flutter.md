@@ -60,6 +60,10 @@ qq登录
 ==
 - 富文本[RealRichText](https://github.com/bytedance/RealRichText)
 
+动态加载框
+==
+- 动态加载框[flutter_spinkit](https://github.com/jogboms/flutter_spinkit)
+
 gallery(官方示例)
 ==
 ```
