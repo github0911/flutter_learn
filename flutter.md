@@ -56,6 +56,10 @@ qq登录
 ==
 - 微信登录 [fluwx](https://pub.dev/packages/fluwx)
 
+富文本
+==
+- 富文本[RealRichText](https://github.com/bytedance/RealRichText)
+
 gallery(官方示例)
 ==
 ```
