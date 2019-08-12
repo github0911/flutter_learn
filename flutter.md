@@ -64,6 +64,9 @@ qq登录
 ==
 - 动态加载框[flutter_spinkit](https://github.com/jogboms/flutter_spinkit)
 
+推荐sdk
+- [推荐sdk](https://blog.iw3c.com/archive/1149)
+
 gallery(官方示例)
 ==
 ```
