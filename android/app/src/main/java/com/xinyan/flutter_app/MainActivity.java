@@ -6,7 +6,14 @@ import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.TextUtils;
+import android.widget.Toast;
 
+import com.netease.nis.captcha.Captcha;
+import com.netease.nis.captcha.CaptchaConfiguration;
+import com.netease.nis.captcha.CaptchaListener;
 import com.xinyan.flutter_app.plugin.FlutterPluginJumpToActivity;
 
 import io.flutter.app.FlutterActivity;
@@ -16,7 +23,13 @@ import io.flutter.plugin.common.PluginRegistry;
 import io.flutter.plugins.GeneratedPluginRegistrant;
 
 public class MainActivity extends FlutterActivity {
+    String noSenseCaptchaId = "6a5cab86b0eb4c309ccb61073c4ab672";
+    private static final String NO_SENSE_CAPTCHA_CHANNEL = "flutter.plugin/noSenseCaptcha";
     private static final String CHANNEL = "flutter.plugin/battery";
+
+    private CaptchaListener captchaListener;
+    private CaptchaConfiguration configuration;
+    private MethodChannel methodChannel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +51,35 @@ public class MainActivity extends FlutterActivity {
                 }
             }
         });
+
+        methodChannel = new MethodChannel(getFlutterView(), NO_SENSE_CAPTCHA_CHANNEL);
+        methodChannel.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
+            @Override
+            public void onMethodCall(MethodCall methodCall, MethodChannel.Result result) {
+                if (methodCall.method.equals("showValidate")) {
+                    showValidate();
+                } else {
+                    result.notImplemented();
+                }
+            }
+        });
+        initListener();
+        initConfiguration();
+    }
+
+    private void initConfiguration() {
+        configuration = new CaptchaConfiguration.Builder()
+                .captchaId(noSenseCaptchaId)// 验证码业务id
+                // 验证码类型，默认为传统验证码，如果要使用无感知请设置以下类型
+                .mode(CaptchaConfiguration.ModeType.MODE_INTELLIGENT_NO_SENSE)
+                .listener(captchaListener)
+                .timeout(1000 * 10) // 超时时间，一般无需设置
+                .debug(true) // 是否启用debug模式，一般无需设置
+                // 设置验证码框的位置和宽度，一般无需设置，不推荐设置宽高，后面将逐步废弃该接口
+                .position(-1, -1, 0, 0)
+                // 自定义验证码滑动条滑块的不同状态图片
+                .build(MainActivity.this);
+        Captcha.getInstance().init(configuration);
     }
 
     private void registerCustomPlugin(PluginRegistry registry) {
@@ -57,5 +99,59 @@ public class MainActivity extends FlutterActivity {
                     intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
         }
         return batteryLevel;
+    }
+
+    private void showValidate() {
+        Captcha.getInstance().validate();
+    }
+
+
+    private void initListener() {
+        captchaListener = new CaptchaListener() {
+            @Override
+            public void onReady() {
+
+            }
+
+            @Override
+            public void onValidate(String result, String validate, String msg) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        methodChannel.invokeMethod("onValidate", validate);
+                    }
+                });
+//                if (!TextUtils.isEmpty(validate)) {
+//                    Toast.makeText(getApplicationContext(), "验证成功", Toast.LENGTH_LONG).show();
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "验证失败", Toast.LENGTH_LONG).show();
+//                }
+            }
+
+            @Override
+            public void onError(int i, String msg) {
+                if (i == Captcha.NO_NETWORK) {
+                    Toast.makeText(getApplicationContext(), "请检查网络", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "验证失败", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onClose() {
+
+            }
+        };
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        captchaListener = null;
     }
 }

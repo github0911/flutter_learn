@@ -167,7 +167,7 @@ class WrapLayoutRoute extends StatelessWidget {
               decoration: BoxDecoration(
                   gradient: RadialGradient(
                     colors: [Colors.red, Colors.orange],
-                    center: Alignment.topLeft,
+                    center: Alignment.centerLeft,
                     radius: 0.98,
                   ),
                   boxShadow: [
@@ -176,7 +176,7 @@ class WrapLayoutRoute extends StatelessWidget {
                         offset: Offset(2, 2),
                         blurRadius: 3),
                   ]),
-              transform: Matrix4.rotationZ(0.2),
+//              transform: Matrix4.rotationZ(0.2),
               alignment: Alignment.center,
               child: Text(
                 '7-11',

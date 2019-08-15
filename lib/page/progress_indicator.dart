@@ -18,6 +18,18 @@ class ProgressIndicatorRouteState extends State<ProgressIndicatorRoute>
 
   static const getBatteryPlugin = const MethodChannel("flutter.plugin/battery");
 
+  static const getValidateResultPlugin = const MethodChannel("flutter.plugin/noSenseCaptcha");
+
+
+
+  Future<dynamic> validateCallHandler(MethodCall call) async {
+    switch (call.method) {
+      case "onValidate":
+        showToast(call.arguments);
+        break;
+    }
+  }
+
   Future<void> _getBatteryLevel() async {
     String batteryLever;
     try {
@@ -31,9 +43,20 @@ class ProgressIndicatorRouteState extends State<ProgressIndicatorRoute>
     });
   }
 
+  Future<void> _getValidateResult() async {
+    String result = "";
+    try {
+      result = await getValidateResultPlugin.invokeMethod("showValidate");
+    } on PlatformException catch (e) {
+
+    }
+    showToast(result);
+  }
+
   @override
   void initState() {
     super.initState();
+    getValidateResultPlugin.setMethodCallHandler(validateCallHandler);
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1500),
       animationBehavior: AnimationBehavior.preserve,
@@ -151,6 +174,7 @@ class ProgressIndicatorRouteState extends State<ProgressIndicatorRoute>
               onTap: () {
                 showToast('edit', radius: 0);
                 _getBatteryLevel();
+                _getValidateResult();
               },
               child: Icon(
                 Icons.edit,
