@@ -35,6 +35,13 @@
 **/android/gradlew.bat
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
+**/android/app/.classpath
+**/android/**/.project
+**/android/**/.settings/
+
+.gradle/
+plugin/umeng_analytics/android/.classpath
+
 
 # iOS/XCode related
 **/ios/**/*.mode1v3

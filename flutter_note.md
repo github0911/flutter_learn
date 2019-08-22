@@ -469,3 +469,21 @@ flutter Resolving dependencies...[flutter Resolving dependencies...](https://sta
 
 ## dart bool 转换parse
 [bool parse](https://stackoverflow.com/questions/21133935/in-dart-is-there-a-parse-for-bool-as-there-is-for-int)
+
+
+## flutter build apk 重命名apk输出名称
+```
+def getDate() {
+    return new Date().format('yyyyMMddHHmmss')
+}
+
+android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        def appName = "appName";
+        outputFileName = "${appName}-${variant.name}-${variant.versionName}-${getDate()}.apk"
+    }
+}
+```
+[迁移到 Android Plugin for Gradle 3.0.0](https://developer.android.google.cn/studio/build/gradle-plugin-3-0-0-migration.html)
+[Gradle 提示与诀窍](https://developer.android.google.cn/studio/build/gradle-tips?hl=zh-CN#configure-multiple-apk-support)
+[配置编译变体](https://developer.android.google.cn/studio/build/build-variants?hl=zh-CN)
