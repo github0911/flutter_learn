@@ -1,3 +1,5 @@
+-ignorewarnings
+
 # Flutter wrapper start
 -dontwarn io.flutter.**
 -keep class io.flutter.app.** { *; }
