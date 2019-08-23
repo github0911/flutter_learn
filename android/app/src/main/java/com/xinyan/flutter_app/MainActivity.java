@@ -11,6 +11,8 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.meituan.android.walle.ChannelInfo;
+import com.meituan.android.walle.WalleChannelReader;
 import com.netease.nis.captcha.Captcha;
 import com.netease.nis.captcha.CaptchaConfiguration;
 import com.netease.nis.captcha.CaptchaListener;
@@ -43,6 +45,13 @@ public class MainActivity extends FlutterActivity {
                     int batteryLevel = getBatteryLevel();
                     if (batteryLevel != -1) {
                         result.success(batteryLevel);
+                    } else {
+                        result.error("failed", "", null);
+                    }
+                } else if (methodCall.method.equals("getChannel")) {
+                    String channel = getChannel();
+                    if (!TextUtils.isEmpty(channel)) {
+                        result.success(channel);
                     } else {
                         result.error("failed", "", null);
                     }
@@ -99,6 +108,18 @@ public class MainActivity extends FlutterActivity {
                     intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
         }
         return batteryLevel;
+    }
+
+    private String getChannel() {
+        ChannelInfo channelInfo = WalleChannelReader.getChannelInfo(this.getApplicationContext());
+        String channel = "";
+        if (channelInfo != null) {
+            channel = channelInfo.getChannel();
+//            Map<String, String> extraInfo = channelInfo.getExtraInfo();
+        }
+//        channel = "channel";
+//        System.out.println("channel " + channel);
+        return channel;
     }
 
     private void showValidate() {

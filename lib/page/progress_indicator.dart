@@ -43,6 +43,16 @@ class ProgressIndicatorRouteState extends State<ProgressIndicatorRoute>
     });
   }
 
+  Future<void> _getChannel() async {
+    String channel;
+    try {
+      channel = await getBatteryPlugin.invokeMethod("getChannel");
+      showToast(channel);
+    } on PlatformException catch (e) {
+      showToast(e.message);
+    }
+  }
+
   Future<void> _getValidateResult() async {
     String result = "";
     try {
@@ -178,6 +188,18 @@ class ProgressIndicatorRouteState extends State<ProgressIndicatorRoute>
               },
               child: Icon(
                 Icons.edit,
+                color: Colors.black,
+              ),
+            )
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: GestureDetector(
+              onTap: () {
+                _getChannel();
+              },
+              child: Icon(
+                Icons.add,
                 color: Colors.black,
               ),
             )
