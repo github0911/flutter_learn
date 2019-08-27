@@ -487,3 +487,57 @@ android.applicationVariants.all { variant ->
 [迁移到 Android Plugin for Gradle 3.0.0](https://developer.android.google.cn/studio/build/gradle-plugin-3-0-0-migration.html)
 [Gradle 提示与诀窍](https://developer.android.google.cn/studio/build/gradle-tips?hl=zh-CN#configure-multiple-apk-support)
 [配置编译变体](https://developer.android.google.cn/studio/build/build-variants?hl=zh-CN)
+
+### showModalBottomSheet setState 不生效解决方案
+[解决方法](https://github.com/flutter/flutter/issues/2115)
+```
+ String update = '更新';
+
+  ///选择省市
+  void locationSheet() {
+//    showModalBottomSheet(
+//        context: context,
+//        builder: (BuildContext context) {
+//          return LocationPicker();
+//        });
+
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(builder: (context,state){
+            return Center(
+              child: FlatButton(
+                  onPressed: () {
+                    updated(state);
+                  },
+                  child: new Text('$update')),
+            );
+          });
+        });
+  }
+
+  Future<Null> updated(StateSetter updateState) async {
+    updateState(() {
+      update = '更新后';
+    });
+  }
+  /// 高度处理
+  showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) {
+      return BottomSheet(
+        onClosing: () {},
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+            builder: (BuildContext context, setState) {
+              //高度控制,增加container来控制高度
+              return Container(
+                height: 240,
+                child: _buildSheetBody(title, list, state: setState),
+              );
+            },
+          );
+        },
+      );
+    });
+```
