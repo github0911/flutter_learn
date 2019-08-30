@@ -457,6 +457,11 @@ flutter Resolving dependencies...[flutter Resolving dependencies...](https://sta
 - step3 运行pub global activate protoc_plugin 启用protoc插件 会在C:\Users\just_\AppData\Roaming\Pub\Cache\bin目录下更新一个protoc-gen-dart.bat文件
 - step4 配置C:\Users\just_\AppData\Roaming\Pub\Cache\bin到环境变量中
 
+### Dart plugin for the protoc compiler 编译proto成dart文件
+[protoc_plugin](https://github.com/dart-lang/protobuf/tree/master/protoc_plugin)
+[darttutorial](https://developers.google.com/protocol-buffers/docs/darttutorial)
+[dart-generated](https://developers.google.com/protocol-buffers/docs/reference/dart-generated)
+
 ## pub 包管理
 - 如果pub缓存目录出现乱码，无法使用，可以删除缓存目录`hosts`下的文件，在Mac和Linux中，缓存目录默认是`~/.pub-cache`。在Windows中，位于`C:\Users\just_\AppData\Roaming\Pub\Cache`。可以通过设置PUB_CACHE环境变量对缓存目录进行修改。
 再执行 flutter pub get 命令重新获取
