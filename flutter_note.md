@@ -541,3 +541,16 @@ android.applicationVariants.all { variant ->
       );
     });
 ```
+
+### Row 要铺满整行，需要配合使用Expanded，默认是包裹子widget,同理，Column要铺满全屏，也需要配合Expanded使用，Expanded只能作用于Flex及其子类
+
+### 在flutter widget layout 完成之后进行操作
+(after_layout)[https://github.com/fluttercommunity/flutter_after_layout]
+```
+@override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => afterFirstLayout(context));
+  }
+```
