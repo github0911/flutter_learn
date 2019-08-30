@@ -554,3 +554,9 @@ android.applicationVariants.all { variant ->
         .addPostFrameCallback((_) => afterFirstLayout(context));
   }
 ```
+
+### flustars 屏幕适配如果不依赖context 需要在build时
+(flustars)[https://github.com/Sky24n/flustars]
+```
+MediaQuery.of(context);
+```
