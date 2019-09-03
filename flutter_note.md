@@ -461,6 +461,9 @@ flutter Resolving dependencies...[flutter Resolving dependencies...](https://sta
 [protoc_plugin](https://github.com/dart-lang/protobuf/tree/master/protoc_plugin)
 [darttutorial](https://developers.google.com/protocol-buffers/docs/darttutorial)
 [dart-generated](https://developers.google.com/protocol-buffers/docs/reference/dart-generated)
+```
+protoc -I=$SRC_DIR --dart_out=$DST_DIR $SRC_DIR/addressbook.proto
+```
 
 ## pub 包管理
 - 如果pub缓存目录出现乱码，无法使用，可以删除缓存目录`hosts`下的文件，在Mac和Linux中，缓存目录默认是`~/.pub-cache`。在Windows中，位于`C:\Users\just_\AppData\Roaming\Pub\Cache`。可以通过设置PUB_CACHE环境变量对缓存目录进行修改。
