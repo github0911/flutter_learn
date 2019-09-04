@@ -568,3 +568,12 @@ android.applicationVariants.all { variant ->
 ```
 MediaQuery.of(context);
 ```
+
+### dart string toInt double to int 
+```
+int.parse('1');
+Int64.parseInt('str');
+var myDouble = double.parse('123.45');
+assert(myDouble is double);
+print(myDouble); // 123.45
+```
