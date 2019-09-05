@@ -577,3 +577,19 @@ var myDouble = double.parse('123.45');
 assert(myDouble is double);
 print(myDouble); // 123.45
 ```
+
+### flutter_slidable 侧滑控件点击隐藏侧滑按钮
+```
+//How to let keep only one Slidable open?
+//You have to set the controller parameter of the Slidable constructors to a SlidableController instance:
+//保留一个Slidable打开
+final SlidableController _slidableController = SlidableController();
+...
+Slidable(
+      key: Key(item.title),
+      controller: _slidableController,
+      ...
+      );
+//点击事件
+_slidableController.activeState = _slidableController.activeState;
+```
