@@ -593,3 +593,12 @@ Slidable(
 //点击事件
 _slidableController.activeState = _slidableController.activeState;
 ```
+
+### showModalBottomSheet 底部弹窗不受最高限制
+```
+showModalBottomSheet(
+  context: context,
+  /// 使用true则高度不受16分之9的最高限制
+  isScrollControlled: true,
+)
+```
