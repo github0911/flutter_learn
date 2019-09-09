@@ -602,3 +602,10 @@ showModalBottomSheet(
   isScrollControlled: true,
 )
 ```
+
+### socket.io不能正常工作 
+[Socket.io not working on Android 9 (API level 28) ](https://stackoverflow.com/questions/53284903/socket-io-not-working-on-android-9-api-level-28?tdsourcetag=s_pcqq_aiomsg)  
+Simply can be done by adding following in your manifest:
+```
+android:usesCleartextTraffic="true"
+```
