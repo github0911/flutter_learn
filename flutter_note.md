@@ -609,3 +609,16 @@ Simply can be done by adding following in your manifest:
 ```
 android:usesCleartextTraffic="true"
 ```
+
+### Gradle build failed to produce an Android package. {772 行}
+[Gradle build failed to produce an Android package.](https://chromium.googlesource.com/external/github.com/flutter/flutter/+/master/packages/flutter_tools/lib/src/android/gradle.dart)
+
+### How to convert Flutter color to string and back to a color 
+[颜色转换](https://stackoverflow.com/questions/49835146/how-to-convert-flutter-color-to-string-and-back-to-a-color)
+```
+Color color = new Color(0x12345678);
+String colorString = color.toString(); // Color(0x12345678)
+String valueString = colorString.split('(0x')[1].split(')')[0]; // kind of hacky..
+int value = int.parse(valueString, radix: 16);
+Color otherColor = new Color(value);
+```
