@@ -639,3 +639,12 @@ ListView(
   shrinkWrap: true,
 ),
 ```
+
+### TextEditingController.clear() throws errors 
+[github issue](https://github.com/flutter/flutter/issues/35909)
+```
+SchedulerBinding.instance.addPostFrameCallback((_) {
+  focus.unfocus();
+  controller.clear();
+});
+```
