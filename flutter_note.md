@@ -622,3 +622,20 @@ String valueString = colorString.split('(0x')[1].split(')')[0]; // kind of hacky
 int value = int.parse(valueString, radix: 16);
 Color otherColor = new Color(value);
 ```
+
+### 隐藏键盘 
+```
+FocusScope.of(context).requestFocus(FocusNode());
+```
+
+### 动态添加widget
+[动态添加widget](https://stackoverflow.com/questions/51605131/how-to-add-the-widgets-dynamically-to-column-in-flutter)
+
+### 在singleChildScrollView 中添加ListView正常显示并且滚动正常
+[在singleChildScrollView正常显示ListView](https://stackoverflow.com/questions/56131101/how-to-place-a-listview-inside-a-singlechildscrollview-but-prevent-them-from-scr)
+```
+ListView(
+  physics: NeverScrollableScrollPhysics(),
+  shrinkWrap: true,
+),
+```
