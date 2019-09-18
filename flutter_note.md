@@ -655,3 +655,5 @@ SchedulerBinding.instance.addPostFrameCallback((_) {
 ```
 
 ### 拖动排序控件 ReorderableListView
+- All children must have a key. 子控件要唯一
+- 可以通过类型区分来构建不同的布局
