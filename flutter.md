@@ -67,6 +67,9 @@ qq登录
 推荐sdk
 - [推荐sdk](https://blog.iw3c.com/archive/1149)
 
+jpush(极光推送)
+- [极光推送](https://github.com/jpush/jpush-flutter-plugin)
+
 gallery(官方示例)
 ==
 ```
