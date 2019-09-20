@@ -657,3 +657,6 @@ SchedulerBinding.instance.addPostFrameCallback((_) {
 ### 拖动排序控件 ReorderableListView
 - All children must have a key. 子控件要唯一
 - 可以通过类型区分来构建不同的布局
+
+### container wrap_content 使用row 或者column时用MainAxisSize.min match_parent MainAxisSize.max
+row/column MainAxisSize.min which behaves as wrap_content and MainAxisSize.max which behaves as match_parent.
