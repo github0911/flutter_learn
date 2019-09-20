@@ -660,3 +660,4 @@ SchedulerBinding.instance.addPostFrameCallback((_) {
 
 ### container wrap_content 使用row 或者column时用MainAxisSize.min match_parent MainAxisSize.max
 row/column MainAxisSize.min which behaves as wrap_content and MainAxisSize.max which behaves as match_parent.
+[linearlayout-in-flutter](https://proandroiddev.com/flutter-for-android-developers-how-to-design-linearlayout-in-flutter-5d819c0ddf1a)
