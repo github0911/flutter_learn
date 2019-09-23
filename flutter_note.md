@@ -670,3 +670,6 @@ row/column MainAxisSize.min which behaves as wrap_content and MainAxisSize.max w
 ### markdown 支持
 - [flutter_markdown](https://github.com/flutter/flutter_markdown)
 - [offical_markdown](https://github.com/dart-lang/markdown)
+
+### websocket 通信,长连接
+- [socket 长连接](http://www.52im.net/forum.php?mod=viewthread&tid=1722&highlight=%B3%A4%C1%AC%BD%D3)
