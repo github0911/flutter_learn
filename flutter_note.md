@@ -661,3 +661,8 @@ SchedulerBinding.instance.addPostFrameCallback((_) {
 ### container wrap_content 使用row 或者column时用MainAxisSize.min match_parent MainAxisSize.max
 row/column MainAxisSize.min which behaves as wrap_content and MainAxisSize.max which behaves as match_parent.
 [linearlayout-in-flutter](https://proandroiddev.com/flutter-for-android-developers-how-to-design-linearlayout-in-flutter-5d819c0ddf1a)
+
+### 状态管理 Provider bloc scoped_model
+- [provider](https://github.com/rrousselGit/provider) [掘金博客](https://juejin.im/post/5d00a84fe51d455a2f22023f#heading-21)
+- [bloc](https://github.com/felangel/bloc)[掘金博客](https://juejin.im/post/5bb6f344f265da0aa664d68a)
+- [scoped_model](https://github.com/brianegan/scoped_model) `最新版本是2018年11月29日发布`[掘金博客](https://juejin.im/post/5b97fa0d5188255c5546dcf8)
