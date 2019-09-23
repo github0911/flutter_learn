@@ -666,3 +666,7 @@ row/column MainAxisSize.min which behaves as wrap_content and MainAxisSize.max w
 - [provider](https://github.com/rrousselGit/provider) [掘金博客](https://juejin.im/post/5d00a84fe51d455a2f22023f#heading-21)
 - [bloc](https://github.com/felangel/bloc)[掘金博客](https://juejin.im/post/5bb6f344f265da0aa664d68a)
 - [scoped_model](https://github.com/brianegan/scoped_model) `最新版本是2018年11月29日发布`[掘金博客](https://juejin.im/post/5b97fa0d5188255c5546dcf8)
+
+### markdown 支持
+- [flutter_markdown](https://github.com/flutter/flutter_markdown)
+- [offical_markdown](https://github.com/dart-lang/markdown)
