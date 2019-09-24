@@ -700,3 +700,13 @@ widget with WidgetsBindingObserver
     }
   }
 ```
+
+### flutter 粘贴板
+```
+import 'package:flutter/services.dart';
+// 设置粘贴板数据
+Clipboard.setData(ClipboardData(text: 'dc123456'));
+// 获取粘贴板数据
+ClipboardData clipboardData = await Clipboard.getData(Clipboard.kTextPlain);
+String str = clipboardData.text;
+```
