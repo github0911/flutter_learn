@@ -673,3 +673,30 @@ row/column MainAxisSize.min which behaves as wrap_content and MainAxisSize.max w
 
 ### websocket 通信,长连接
 - [socket 长连接](http://www.52im.net/forum.php?mod=viewthread&tid=1722&highlight=%B3%A4%C1%AC%BD%D3)
+
+### flutter lifecycle 对应 Android onResume
+```
+widget with WidgetsBindingObserver
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+    // went to Background
+    }
+    if (state == AppLifecycleState.resumed) {
+      // came back to Foreground
+    }
+  }
+```
