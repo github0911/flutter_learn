@@ -710,3 +710,8 @@ Clipboard.setData(ClipboardData(text: 'dc123456'));
 ClipboardData clipboardData = await Clipboard.getData(Clipboard.kTextPlain);
 String str = clipboardData.text;
 ```
+
+### 聊天界面
+- [CSDN demo](https://blog.csdn.net/hekaiyou/article/details/78011843)
+- [flutter-chat-demo](https://github.com/duytq94/flutter-chat-demo)
+- [flutter-chat-app](https://github.com/rohan20/flutter-chat-app)
