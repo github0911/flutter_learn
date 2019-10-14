@@ -718,3 +718,32 @@ String str = clipboardData.text;
 
 ### 阿里云 OSS服务
 -[aliyun-android-sdk](https://github.com/aliyun/aliyun-oss-android-sdk)
+
+### shareSDK 
+* [传送门](https://github.com/MobClub/ShareSDK-For-Flutter)
+* [官方文档](http://wiki.mob.com/sharesdk-for-flutter/)
+* 下载github源码，直接导入flutter工程。不要使用在线package方式接入，接入步骤已官方文档为主。
+* Android，iOS的接入部分需要按照原生接入方式进行配置。
+* Android 主要包括配置android/build.gradle 增加android/MobSDK.gradle，混淆文件
+```
+# sharesdk start
+-keep class cn.sharesdk.**{*;}
+-keep class com.sina.**{*;}
+-keep class **.R$* {*;}
+-keep class **.R{*;}
+-keep class com.mob.**{*;}
+-keep class m.framework.**{*;}
+-dontwarn cn.sharesdk.**
+-dontwarn com.sina.**
+-dontwarn com.mob.**
+-dontwarn **.R$*
+# sharesdk end
+```
+* AndroidManifest.xml
+```
+    <application
+        android:name="io.flutter.app.FlutterApplication"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        tools:replace="android:name">
+```
