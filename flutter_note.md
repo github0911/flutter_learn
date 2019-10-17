@@ -463,6 +463,9 @@ flutter Resolving dependencies...[flutter Resolving dependencies...](https://sta
 [dart-generated](https://developers.google.com/protocol-buffers/docs/reference/dart-generated)
 ```
 protoc -I=$SRC_DIR --dart_out=$DST_DIR $SRC_DIR/addressbook.proto
+protoc --proto_path=src --dart_out=build/gen src/foo.proto src/bar/baz.proto
+protoc --proto_path=proto --dart_out=beenest/lib/class/common/model proto/api/auth/auth.proto proto/common/base_im.proto proto/common/base_channel.proto proto/api/channel/channel.proto proto/api/general/friends.proto proto/api/general/general.proto
+protoc --proto_path=proto --dart_out=generate/build proto/api/auth/auth.proto proto/common/base_im.proto proto/common/base_channel.proto proto/api/channel/channel.proto proto/api/general/friends.proto proto/api/general/general.proto
 ```
 
 ## pub 包管理
