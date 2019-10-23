@@ -442,6 +442,7 @@ flutter Resolving dependencies...[flutter Resolving dependencies...](https://sta
 ## example
 [flutter/examples/](https://github.com/flutter/flutter/tree/master/examples)
 [flutter/samples](https://github.com/flutter/samples)
+[flutter-go](https://github.com/alibaba/flutter-go)
 
 **异常处理**
 - [couldn't find "libflutter.so"](https://juejin.im/post/5c3444116fb9a049e6606bc4)
