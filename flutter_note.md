@@ -751,3 +751,7 @@ String str = clipboardData.text;
         android:icon="@mipmap/ic_launcher"
         tools:replace="android:name">
 ```
+## flutter 判断是否联网，获取网络类型
+connectivity
+[Homepage](https://github.com/flutter/plugins/tree/master/packages/connectivity)
+
