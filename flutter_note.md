@@ -755,3 +755,36 @@ String str = clipboardData.text;
 connectivity
 [Homepage](https://github.com/flutter/plugins/tree/master/packages/connectivity)
 
+## TextField  多行输入配置
+```
+TextField(
+  controller: textEditingController ?? TextEditingController(),
+  maxLines: 4,// 设置多行
+  minLines: 1,// 必须设置，不然会变成多行显示
+  maxLength: 2000,
+  focusNode: focusNode,
+  onSubmitted: (value) {
+    Utils.debug("onSubmitted -------------------> $value");
+    onSubmitted(value);
+    textEditingController.text = "";
+  },
+  style: TextStyle(
+    fontSize: Macros.scale(16),
+    color: Colours.text_black_333,
+    fontWeight: FontWeight.w500,
+  ),
+  cursorColor: Colours.brand_yellow,
+  textInputAction: TextInputAction.send,//设置action，必须设置keyboardType，按钮的操作不是发送，而是换行
+  keyboardType: TextInputType.text,//
+  decoration: InputDecoration(
+    border: InputBorder.none,
+    contentPadding: EdgeInsets.symmetric(vertical: Dimens.gap_dp16),
+    hintText: "请输入......",
+    counterText: "",
+    hintStyle: TextStyle(
+        fontSize: Macros.scale(16), color: Colours.text_gray_b1),
+  ),
+);
+```
+## dart
+[language-tour](https://dart.cn/guides/language/language-tour)
