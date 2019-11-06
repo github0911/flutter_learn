@@ -726,7 +726,7 @@ String str = clipboardData.text;
 ### shareSDK 
 * [传送门](https://github.com/MobClub/ShareSDK-For-Flutter)
 * [官方文档](http://wiki.mob.com/sharesdk-for-flutter/)
-* 下载github源码，直接导入flutter工程。不要使用在线package方式接入，接入步骤已官方文档为主。
+* 下载github源码，直接导入flutter工程。不要使用在线package方式接入，接入步骤以官方文档为主。
 * Android，iOS的接入部分需要按照原生接入方式进行配置。
 * Android 主要包括配置android/build.gradle 增加android/MobSDK.gradle，混淆文件
 ```
@@ -788,3 +788,16 @@ TextField(
 ```
 ## dart
 [language-tour](https://dart.cn/guides/language/language-tour)
+
+## emoji 表情自定义删除
+```
+  String text = textEditingController.text;
+  var result = text.substring(0, text.length - 1);
+  if (result.isNotEmpty) {
+    List<int> bytes = utf8.encode(text.substring(text.length - 1));
+    if (bytes.length == 3 && bytes[0] == 237) {
+      // bytes[0] 为表情编码之后的byte
+      result = result.substring(0, result.length - 1);
+    }
+  }
+```
