@@ -801,3 +801,12 @@ TextField(
     }
   }
 ```
+
+## flutter 相册Api
+[flutter_photo_manager](https://github.com/CaiJingLong/flutter_photo_manager)
+[flutter_photo](https://github.com/CaiJingLong/flutter_photo)
+
+## flutter 迁移AndroidX
+[迁移AndroidX](https://caijinglong.gitbooks.io/migrate-flutter-to-androidx/content/zhong-wen.html)
+
+## 图片自定义选择可以借鉴flutter_photo代码实现
