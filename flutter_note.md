@@ -814,3 +814,18 @@ TextField(
 ## listview 滚动到指定位置通过index
 [scroll-to-index](https://github.com/quire-io/scroll-to-index)
 [issues#12319](https://github.com/flutter/flutter/issues/12319)
+
+
+## Dart 数据集中操作item 
+Dart报错"Concurrent modification during iteration: Instance(length:3) of '_GrowableList'."
+```
+// Dart提供了removeWhere
+List list = [1, 2, 3, 4];
+ 
+// 这里使用了箭头函数，后面的表达式为true时会删除当前值
+list.removeWhere((value) => value == 2); 
+// 当然也能用{}
+list.removeWhere((value) {
+    retrun value == 2;
+});
+```
