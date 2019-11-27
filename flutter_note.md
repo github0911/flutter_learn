@@ -832,3 +832,7 @@ list.removeWhere((value) {
 
 ## utility libraries 
 [dart 工具](https://github.com/google/quiver-dart)
+
+## flutter orm 数据库
+[ROM数据库使用](https://juejin.im/post/5da6d64a6fb9a04e1325e935)
+[package](https://pub.flutter-io.cn/packages/flutter_orm_plugin)
