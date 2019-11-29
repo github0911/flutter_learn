@@ -1,5 +1,5 @@
 ## [Windows 安装flutter]("https://flutterchina.club/setup-windows/")
-
+[Windows 安装flutter](https://flutterchina.club/setup-windows/)
 ### 使用外部包的操作流程：
 编辑pubspec.yaml 在dependencies中加入所需要引入的package  
 pubspec文件管理Flutter应用程序的assets(资源，如图片、package等)。  
