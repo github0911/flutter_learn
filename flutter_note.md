@@ -836,3 +836,9 @@ list.removeWhere((value) {
 ## flutter orm 数据库
 [ROM数据库使用](https://juejin.im/post/5da6d64a6fb9a04e1325e935)
 [package](https://pub.flutter-io.cn/packages/flutter_orm_plugin)
+
+## flutter 下载文件
+[flutter_downloade](https://github.com/fluttercommunity/flutter_downloader)
+
+# flutter 打开文件
+[open_file](https://github.com/crazecoder/open_file)
