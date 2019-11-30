@@ -842,3 +842,6 @@ list.removeWhere((value) {
 
 ## flutter 打开文件
 [open_file](https://github.com/crazecoder/open_file)
+
+## android studio Cannot find runner for main.dart
+需要重新配置flutter SDK。配置路径（File->Settings->Languages&Frameworks->Flutter->Flutter SDK path）
