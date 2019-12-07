@@ -28,13 +28,14 @@ class TextUtil {
   }
 
   /// 字符串反序
-  static String reverse(String text) {
-    if (isEmpty(text)) {
-      return '';
+  static String reverse(String s) {
+    if (isEmpty(s)) {
+      return s;
     }
     StringBuffer sb = StringBuffer();
-    for (int i = text.length - 1; i >= 0; i--) {
-      sb.writeCharCode(text.codeUnitAt(i));
+    var runes = s.runes.iterator..reset(s.length);
+    while (runes.movePrevious()) {
+      sb.writeCharCode(runes.current);
     }
     return sb.toString();
   }
@@ -65,5 +66,26 @@ class TextUtil {
   /// 8888888 => 8,888,888
   static String formatCurrencyNo(Object num) {
     return formatDigitPatternEnd(num?.toString(), digit: 3, pattern: ',');
+  }
+
+    /// 是否空白
+  static bool isBlank(String s) {
+    return s == null || s.trim().isEmpty;
+  }
+
+  /// 字符串不是空白
+  static bool isNotBlank(String s) {
+    return s != null && s.trim().isNotEmpty;
+  }
+
+  /// 字符串不为空
+  static bool isNotEmpty(String s) {
+    return s != null && s.isNotEmpty;
+  }
+
+  /// 不区分大小写判断是否相等
+  static bool equalsIgnoreCase(String a, String b) {
+    return (a == null && b == null) ||
+        (a != null && b != null && a.toLowerCase() == b.toLowerCase());
   }
 }
