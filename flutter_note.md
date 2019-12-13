@@ -845,3 +845,7 @@ list.removeWhere((value) {
 
 ## android studio Cannot find runner for main.dart
 需要重新配置flutter SDK。配置路径（File->Settings->Languages&Frameworks->Flutter->Flutter SDK path）
+
+## flutter listview build type 'Future<dynamic>' is not a subtype of type 'Widget'
+* listview item build 包含Future获取数据
+* https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html
