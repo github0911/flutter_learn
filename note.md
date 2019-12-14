@@ -8,3 +8,14 @@
 
 ## 正则表达式
 [入门教程](https://deerchao.cn/tutorials/regex/regex-1.htm)
+
+## Mac OS X 安装protobuf
+1. 下载protobuf 官网[downloads](https://developers.google.com/protocol-buffers/docs/downloads)
+2. 解压下载的文件
+3. cd到protobuf-x.x.x目录
+4. ./configure
+5. make
+6. make check
+7. sudo make install （需要接着输入密码）
+8. which protoc
+9. protoc --version
