@@ -850,3 +850,12 @@ list.removeWhere((value) {
 ## flutter listview build type 'Future<dynamic>' is not a subtype of type 'Widget'
 * listview item build 包含Future获取数据
 * https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html
+
+## flutter 升级1.12.13 版本异常
+**依赖库有异常：** 
+1. crypto 需要升级至 2.1.3
+2. cached_network_image ^2.0.0-rc
+3. multi_image_picker 4.5.9会有异常信息，方法出现无法调用，如果升级到4.6.0则不会返回filePath
+`I can't get filePath after upgrade from 4.5.7 to 4.6.0
+https://github.com/Sh1d0w/multi_image_picker/issues/337#issuecomment-563581173
+`

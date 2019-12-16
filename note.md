@@ -24,3 +24,7 @@
 ```
 sudo spctl --master-disable
 ```
+
+## flutter 切换版本
+1. flutter channel 显示当前版本
+2. flutter channel stable 切换版本到stable
