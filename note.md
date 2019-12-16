@@ -19,3 +19,8 @@
 7. sudo make install （需要接着输入密码）
 8. which protoc
 9. protoc --version
+
+## Mac无法打开“XXXX”，因为Apple无法检查其是否包含恶意软件。”的解决办法
+```
+sudo spctl --master-disable
+```

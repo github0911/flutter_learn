@@ -457,6 +457,7 @@ flutter Resolving dependencies...[flutter Resolving dependencies...](https://sta
 - step2 配置pub环境变量，在flutter目录flutter\bin\cache\dart-sdk\bin配置到环境变量中，命令行运行pub是否正常
 - step3 运行pub global activate protoc_plugin 启用protoc插件 会在C:\Users\just_\AppData\Roaming\Pub\Cache\bin目录下更新一个protoc-gen-dart.bat文件
 - step4 配置C:\Users\just_\AppData\Roaming\Pub\Cache\bin到环境变量中
+- flutter pub global activate encrypt `mac os`
 
 ### Dart plugin for the protoc compiler 编译proto成dart文件
 [protoc_plugin](https://github.com/dart-lang/protobuf/tree/master/protoc_plugin)
