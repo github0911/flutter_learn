@@ -859,3 +859,6 @@ list.removeWhere((value) {
 `I can't get filePath after upgrade from 4.5.7 to 4.6.0
 https://github.com/Sh1d0w/multi_image_picker/issues/337#issuecomment-563581173
 `
+
+## 配置环境，环境加载不同配置
+[Flutter 实现根据环境加载不同配置](https://www.yuanxuxu.com/2018/09/13/flutter-load-config-by-env/)

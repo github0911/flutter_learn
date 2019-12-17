@@ -26,5 +26,14 @@ sudo spctl --master-disable
 ```
 
 ## flutter 切换版本
+**历史版本**
+[release](https://flutter.dev/docs/development/tools/sdk/releases?tab=macos)
 1. flutter channel 显示当前版本
-2. flutter channel stable 切换版本到stable
+2. flutter channel stable 切换版本到stable / 1.9.1+hotfix.3 版本号
+3. flutter channel 1.9.1+hotfix.3 
+
+## mac 进程kill 
+```
+kill -9 999 (999为进程id)
+```
+
