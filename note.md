@@ -37,3 +37,16 @@ sudo spctl --master-disable
 kill -9 999 (999为进程id)
 ```
 
+## Charles cannot configure your proxy settings while it is on a read-only volume. Perhaps you are running Charles from the disk image? If so, please copy Charles to the Applications folder and run it again. Otherwise please ensure that Charles is running on a volume that is read-write and try again
+sudo chown -R root "/Applications/Charles.app/Contents/Resources"
+sudo chmod -R u+s "/Applications/Charles.app/Contents/Resources"
+
+## macos 查看本地ip地址
+**ifconfig可以显示网络接口的网络参数，但是直接输入的话会显示一堆我们并不需要的数据，所以用grep进行过滤。**
+```
+ifconfig | grep "inet " | grep -v 127.0.0.1
+```
+
+## Charles 功能介绍和使用教程
+[传送门](https://juejin.im/post/5b8350b96fb9a019d9246c4c)
+
