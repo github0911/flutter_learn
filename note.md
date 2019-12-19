@@ -50,3 +50,6 @@ ifconfig | grep "inet " | grep -v 127.0.0.1
 ## Charles 功能介绍和使用教程
 [传送门](https://juejin.im/post/5b8350b96fb9a019d9246c4c)
 
+## 安装zsh之后，打开终端（命令行）需要执行source ~/.bash_profile配置环境变量才生效
+* 发现zsh加载的是 ~/.zshrc文件，而 ‘.zshrc’ 文件中并没有定义任务环境变量。
+* 在~/.zshrc文件最后，增加一行：`source ~/.bash_profile`

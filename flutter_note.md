@@ -862,3 +862,10 @@ https://github.com/Sh1d0w/multi_image_picker/issues/337#issuecomment-563581173
 
 ## 配置环境，环境加载不同配置
 [Flutter 实现根据环境加载不同配置](https://www.yuanxuxu.com/2018/09/13/flutter-load-config-by-env/)
+
+## textField 增加上下左右边距
+```
+decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(vertical: Dimens.gap_dp16),
+),
+```
