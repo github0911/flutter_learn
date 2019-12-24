@@ -869,3 +869,26 @@ decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(vertical: Dimens.gap_dp16),
 ),
 ```
+
+## ScrollView 嵌套 ListView 
+[Flutter : ListView, GridView inside ScrollView](https://medium.com/flutterpub/flutter-listview-gridview-inside-scrollview-68b722ae89d4)
+```
+/// CustomScrollView(
+///   shrinkWrap: true,
+///   slivers: <Widget>[
+///     SliverPadding(
+///       padding: const EdgeInsets.all(20.0),
+///       sliver: SliverList(
+///         delegate: SliverChildListDelegate(
+///           <Widget>[
+///             const Text('I\'m dedicating every day to you'),
+///             const Text('Domestic life was never quite my style'),
+///             const Text('When you smile, you knock me out, I fall apart'),
+///             const Text('And I thought I was so smart'),
+///           ],
+///         ),
+///       ),
+///     ),
+///   ],
+/// )
+```
