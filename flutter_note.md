@@ -862,6 +862,13 @@ https://github.com/Sh1d0w/multi_image_picker/issues/337#issuecomment-563581173
 
 ## 配置环境，环境加载不同配置
 [Flutter 实现根据环境加载不同配置](https://www.yuanxuxu.com/2018/09/13/flutter-load-config-by-env/)
+**打包命令**
+```
+flutter build apk -t lib/main_dev.dart
+flutter build apk -t lib/main_test.dart
+flutter build apk -t lib/main.dart
+```
+
 
 ## textField 增加上下左右边距
 ```
