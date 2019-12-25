@@ -941,3 +941,20 @@ RaisedButton(
     child: Text('Test'),
 
 ```
+
+## flutter 切换channel
+[官方示例](https://flutter.cn/docs/development/tools/sdk/upgrading)
+```
+$ flutter channel
+Flutter channels:
+* stable
+  beta
+  dev
+  master
+```
+
+To switch channels, run `flutter channel [<channel-name>]`, and then run `flutter upgrade` to ensure you're on the latest.
+切换到指定版本
+```
+flutter version v1.9.1+hotfix.3
+```
