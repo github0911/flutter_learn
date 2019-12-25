@@ -899,3 +899,45 @@ decoration: InputDecoration(
 ///   ],
 /// )
 ```
+
+## Flutter 防止高频操作(防抖)
+* rxdart 
+```dart
+final _behaviorSubject = BehaviorSubject<String>();
+@override
+  void initState() {
+    super.initState();
+    _behaviorSubject.debounceTime(Duration(seconds: 1)).listen((String data){
+      _handleData();
+    });
+  }
+RaisedButton(
+  onPressed: () {
+    _behaviorSubject.add("");
+  },
+  child: Text('Test'),
+)
+```
+* timer
+```
+import 'dart:async';
+ 
+Function debounce(Function fn, [int t = 30]) {
+  Timer _debounce;
+  return () {
+    // 还在时间之内，抛弃上一次
+    if (_debounce?.isActive ?? false) _debounce.cancel();
+ 
+    _debounce = Timer(Duration(milliseconds: t), () {
+      fn();
+    });
+  };
+}
+ 
+RaisedButton(
+      onPressed: debounce(() {
+          print(1);
+     }, 3000),
+    child: Text('Test'),
+
+```
