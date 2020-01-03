@@ -53,3 +53,11 @@ ifconfig | grep "inet " | grep -v 127.0.0.1
 ## 安装zsh之后，打开终端（命令行）需要执行source ~/.bash_profile配置环境变量才生效
 * 发现zsh加载的是 ~/.zshrc文件，而 ‘.zshrc’ 文件中并没有定义任务环境变量。
 * 在~/.zshrc文件最后，增加一行：`source ~/.bash_profile`
+
+App 在macOS Catalina下提示已损坏无法打开解决办法：
+
+打开终端；
+输入以下命令，回车；
+sudo xattr -d com.apple.quarantine /Applications/xxxx.app
+注意：/Applications/xxxx.app 换成你的App路径（推荐直接将.app文件拖入终端中自动生成路径，以防空格等转义字符手动复制或输入出现错误）
+重启App即可。

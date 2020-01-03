@@ -958,3 +958,23 @@ To switch channels, run `flutter channel [<channel-name>]`, and then run `flutte
 ```
 flutter version v1.9.1+hotfix.3
 ```
+
+## flutter TextField 限制输入
+```
+TextField(
+  inputFormatters: [
+    WhitelistingTextInputFormatter(RegExp("[a-zA-Z]|[0-9]")),
+    LengthLimitingTextInputFormatter(30),
+  ],
+)
+```
+
+## flutter Textfield onfocus 监听
+```
+  FocusNode _myFocusNode = FocusNode();
+  _myFocusNode.addListener((){
+    _isEdit = true;
+    setState(() {  
+    });
+  });
+```
