@@ -960,7 +960,7 @@ flutter version v1.9.1+hotfix.3
 ```
 
 ## flutter TextField 限制输入
-```
+```dart
 TextField(
   inputFormatters: [
     WhitelistingTextInputFormatter(RegExp("[a-zA-Z]|[0-9]")),
@@ -970,7 +970,7 @@ TextField(
 ```
 
 ## flutter Textfield onfocus 监听
-```
+```dart
   FocusNode _myFocusNode = FocusNode();
   _myFocusNode.addListener((){
     _isEdit = true;
@@ -978,3 +978,16 @@ TextField(
     });
   });
 ```
+
+## dialog dismiss 回调 （How run code after showDialog is dismissed in Flutter?）
+```dart
+await showDialog(
+       //Your Dialog Code
+).then((val){
+  /// 窗口隐藏的操作
+    Navigator.pop(_context);
+});
+```
+
+## 网络接口请求返回错误码进行处理 使用eventbus来进行数据传递
+[传送门](https://github.com/flutterchina/dio/issues/105)
