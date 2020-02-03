@@ -991,3 +991,44 @@ await showDialog(
 
 ## 网络接口请求返回错误码进行处理 使用eventbus来进行数据传递
 [传送门](https://github.com/flutterchina/dio/issues/105)
+
+## Textfield 光标和文本显示不居中处理
+[传送门](https://github.com/flutter/flutter/issues/40248)
+```dart
+ThemeData(
+    textTheme: TextTheme(subhead: TextStyle(textBaseline: TextBaseline.alphabetic)),
+/// or
+TextField > style > textBaseline: TextBaseline.alphabetic
+```
+
+https://github.com/flutter/flutter/issues/20761#issuecomment-493434578
+
+https://github.com/flutter/plugins/tree/master/packages/package_info
+
+
+## textField maxLength 设置不显示 计数标示
+```dart
+TextField(
+  obscureText: false,
+  maxLength: widget.maxLength,
+  keyboardType: TextInputType.text,
+  controller: _controller,
+  focusNode: _focusNode,
+  cursorColor: Colours.brand_yellow,
+  style: TextStyle(
+    fontSize: Macros.scale(15),
+  ),
+  decoration: InputDecoration(
+    hintText: _hint,
+    border: InputBorder.none, //去掉下划线
+    hintStyle: TextStyle(
+      color: Colours.text_gray_cf,
+      fontSize: Macros.scale(15),
+    ),
+    counterText: "",//不显示计数（0/maxLength）
+  ),
+  inputFormatters: widget.inputFormatters == null
+      ? <TextInputFormatter>[]
+      : widget.inputFormatters,
+),
+```

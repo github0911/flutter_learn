@@ -28,9 +28,12 @@ sudo spctl --master-disable
 ## flutter 切换版本
 **历史版本**
 [release](https://flutter.dev/docs/development/tools/sdk/releases?tab=macos)
+[传送门](https://flutter.cn/docs/development/tools/sdk/upgrading)
 1. flutter channel 显示当前版本
 2. flutter channel stable 切换版本到stable / 1.9.1+hotfix.3 版本号
-3. flutter channel 1.9.1+hotfix.3 
+3. ~~flutter channel 1.9.1+hotfix.3 ()~~
+4. flutter version //查看版本
+5. flutter version 1.9.1+hotfix.3 // 切换到指定版本
 
 ## mac 进程kill 
 ```
@@ -64,3 +67,8 @@ sudo xattr -d com.apple.quarantine /Applications/xxxx.app
 
 ## MAC外接显示器导致无声问题
 * 系统偏好设置->声音->输出->耳机
+
+## git 查看提交日志 
+```
+git log --since="2020-01-17" --pretty=format:"%s"
+```
