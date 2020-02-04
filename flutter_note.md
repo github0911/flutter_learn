@@ -1032,3 +1032,6 @@ TextField(
       : widget.inputFormatters,
 ),
 ```
+
+## 屏幕唤醒
+* [传送门](https://pub.flutter-io.cn/packages/wakelock)
