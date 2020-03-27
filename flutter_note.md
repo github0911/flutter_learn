@@ -1035,3 +1035,109 @@ TextField(
 
 ## 屏幕唤醒
 * [传送门](https://pub.flutter-io.cn/packages/wakelock)
+
+## 退出应用
+SystemNavigator.pop();
+exit(0); //会有黑屏
+
+## audioplayers 
+[传送门](https://pub.flutter-io.cn/packages/audioplayers)
+* Unhandled Exception: MissingPluginException #216
+* flutter clean & flutter pub get
+
+``` java
+import android.os.Bundle;
+import io.flutter.app.FlutterActivity;
+import io.flutter.plugins.GeneratedPluginRegistrant;
+
+import android.view.KeyEvent;
+import io.flutter.plugin.common.MethodCall;
+import io.flutter.plugin.common.MethodChannel;
+
+public class MainActivity extends FlutterActivity {
+	//通讯名称,回到手机桌面
+	private  final String CHANNEL = "android/back/desktop";
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		GeneratedPluginRegistrant.registerWith(this);
+		new MethodChannel(getFlutterView(), CHANNEL).setMethodCallHandler(
+			new MethodChannel.MethodCallHandler() {
+				@Override
+				public void onMethodCall(MethodCall methodCall, MethodChannel.Result result) {
+					if (methodCall.method.equals("backDesktop")) {
+						result.success(true);
+						moveTaskToBack(false);
+					} 
+				}
+			}
+		);
+	}
+}
+```
+
+``` dart
+import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
+
+class AndroidBackTop {
+	//初始化通信管道-设置退出到手机桌面
+	static const String CHANNEL = "android/back/desktop";
+	//设置回退到手机桌面
+	static Future<bool> backDeskTop() async {
+		final platform = MethodChannel(CHANNEL);
+		//通知安卓返回,到手机桌面
+		try {
+			final bool out = await platform.invokeMethod('backDesktop');
+			if (out) debugPrint('返回到桌面');
+		} on PlatformException catch (e) {
+			debugPrint("通信失败(设置回退到安卓手机桌面:设置失败)");
+			print(e.toString());
+		}
+		return Future.value(false);
+	}
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Provide<ConfigModel>(
+      builder: (context, child, configModel) {
+        return MaterialApp(
+			title: 'test',
+			debugShowCheckedModeBanner: false,
+			home: WillPopScope(
+				onWillPop: () async {
+					AndroidBackTop.backDeskTop();  //设置为返回不退出app
+					return false;  //一定要return false
+				},
+				child: Text("Test"),
+			),
+        );
+      },
+    );
+  }
+}
+```
+
+### cocoapods 卸载，安装
+[传送门](https://www.jianshu.com/p/f43b5964f582)
+
+### 解决包依赖冲突
+[传送门](https://blog.csdn.net/mqdxiaoxiao/article/details/102522868)
+
+### textfield controller 资源回收
+[传送门](https://flutter.cn/docs/cookbook/forms/text-field-changes)
+
+### Error connecting to the service protocol: failed to connect to http://127.0.0.1:1029/89AGRYqn_pA=/ 
+[传送门](https://github.com/flutter/flutter/issues/48234)
+[传送门](https://github.com/flutter/flutter/issues/47204)
+I was having this issue. I uninstalled the app from my device, opened the project in xcode, ran some build cleaning thing that appeared in the yellow triangle warning area, then built the app via xcode. Then uninstalled the app from device again. Then ran via android studio and it worked.
+我有这个问题。 我从设备上卸载了该应用程序，在xcode中打开了该项目，运行了一些显示在黄色三角形警告区域中的构建清理程序，然后通过xcode构建了该应用程序。 然后再次从设备上卸载该应用。 然后通过android studio运行，它起作用了。
+
+### 集成MobSDK push 自定义application
+Can't load Kernel binary: Invalid kernel binary: Indicated size is invalid.
+FlutterMain.startInitialization(this);
+MobSDK.init(this);
+
