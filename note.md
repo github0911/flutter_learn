@@ -72,3 +72,23 @@ sudo xattr -d com.apple.quarantine /Applications/xxxx.app
 ```
 git log --since="2020-01-17" --pretty=format:"%s"
 ```
+
+## Android Q 10 视频显示缩略图
+https://developer.android.google.cn/reference/android/media/ThumbnailUtils
+
+git log --since="2020-04-20" --pretty=format:"%s"
+
+
+
+getFileFromMemory
+
+getFileFromCache
+
+## ssh 拷贝文件
+Copy single file from remote to local.
+scp admin@192.168.2.76:~/build_mac_for_windows.sh ~/Desktop/jiagu
+Copy single file from local to remote.
+scp myfile.txt remoteuser@remoteserver:/remote/folder/
+
+## android 粘贴板无法获取内容
+需要进行延时获取

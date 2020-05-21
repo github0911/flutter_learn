@@ -1141,3 +1141,100 @@ Can't load Kernel binary: Invalid kernel binary: Indicated size is invalid.
 FlutterMain.startInitialization(this);
 MobSDK.init(this);
 
+
+### Flutter BackdropFilter 实现高斯模糊
+如果不指定宽高 布局是全屏
+需要使用ClipRect嵌套
+```dart
+Stack(
+  fit: StackFit.expand,
+  children: <Widget>[
+    Text('0' * 10000),
+    Center(
+      child: ClipRect(  // <-- clips to the 200x200 [Container] below
+        child: BackdropFilter(
+          filter: ui.ImageFilter.blur(
+            sigmaX: 5.0,
+            sigmaY: 5.0,
+          ),
+          child: Container(
+            alignment: Alignment.center,
+            width: 200.0,
+            height: 200.0,
+            child: Text('Hello World'),
+          ),
+        ),
+      ),
+    ),
+  ],
+)
+```
+
+### mob 
+
+### Dart List min/max value
+list 不能为空
+```dart 
+import 'dart:math';
+
+main(){
+  print([1,2,8,6].reduce(max)); // 8
+  print([1,2,8,6].reduce(min)); // 1
+}
+```
+
+### 文本字符显示 https://pub.flutter-io.cn/packagesassorted_layout_widgets
+单行字符显示
+assorted_layout_widgets: ^1.0.18
+
+### pod 安装失败
+flutter clean
+rm -Rf ios/Pods
+rm -Rf ios/.symlinks
+rm -Rf ios/Flutter/Flutter.framework
+rm -Rf ios/Flutter/Flutter.podspec
+
+### Bottom sheet with configurable height
+底部弹窗设置自定义高度
+https://github.com/flutter/flutter/issues/32747
+```dart
+isScrollControlled: true,
+```
+
+### Error connecting to the service protocol: failed to connect to http://127.0.0.1:1024/fu9GVzdywXU=/
+killall iproxy
+执行 /Users/zhangmingming/development/flutter/bin/cache/artifacts/usbmuxd/iproxy
+export NO_PROXY=127.0.0.1,localhost
+
+### 
+https://juejin.im/post/5b5f00e7e51d45190571172f
+flutter packages pub run build_runner build
+
+### main 初始化数据
+2020-04-16 12:09:24.201589+0800 Runner[15975:2019351] [VERBOSE-2:ui_dart_state.cc(157)] Unhandled Exception: ServicesBinding.defaultBinaryMessenger was accessed before the binding was initialized.
+If you're running an application and need to access the binary messenger before `runApp()` has been called (for example, during plugin initialization), then you need to explicitly call the `WidgetsFlutterBinding.ensureInitialized()` first.
+If you're running a test, you can call the `TestWidgetsFlutterBinding.ensureInitialized()` as the first line in your test's `main()` method to initialize the binding.
+#0      defaultBinaryMessenger.<anonymous closure> (package:flutter/src/services/binary_messenger.dart:76:7)
+#1      defaultBinaryMessenger (package:flutter/src/services/binary_messenger.dart:89:4)
+#2      PlatformAssetBundle.load (package:flutter/src/services/asset_bundle.dart:219:15)
+#3      SimpleImageCache.load (package:bee_nest/res/simple_image_cache.dart:27:42)
+#4      main (package:bee_nest/main_dev.dart:49:35)
+#5      _AsyncAwaitCompleter.start (dart:async-patch/async_patch.dart:45:6)
+#6      main (package:bee_nest/main_dev.dart:44:18)
+#7      _runMainZoned.<anonymous closure>.<anonymous closure> (dart:ui/hooks.dart:239:25)
+#8      _rootRun (dart:async/zone.dart:1126:13)
+#9      _CustomZone.run (dart:async/zone.dart:1023:19)
+#10     _runZoned (dart:async/zone.dart:1518:10)
+#11     runZoned (dart:async/zone.dart:1502:12)
+#12     _runMainZoned.<anonymous closure> (dart:ui/hooks.dart:231:5)
+#13     _startIsolate.<anonymous closure> (dart:isolate-patch/isolate_patch.dart:307:19)
+#14     _RawReceivePortImpl._handleMessage (dart:isolate-patch/isolate_patch.dart:174:12)
+
+### dart protobuf 处理
+如果是要给对象赋值操作，需要进行clone之后再进行处理，不然会出现readonly
+
+### [App.framework] Linked and embedded framework 'App.framework' was built for iOS/iOS Simulator
+[传送门](https://github.com/flutter/flutter/issues/50568)
+```
+rm -rf ios/Flutter/App.framework
+```

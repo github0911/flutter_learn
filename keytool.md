@@ -31,4 +31,13 @@ proguard-rules.pro 增加混淆配置时需要增加
  -printcrl           打印 CRL 文件的内容
  -storepasswd        更改密钥库的存储口令
 ```
+
+# 命令行应用重新签名
+
+jarsigner -verbose -keystore ~/Desktop/jiagu/key.jks -signedjar ~/Desktop/jiagu/legu_sign.apk ~/Desktop/jiagu/legu_unsign.apk  key
+
+jarsigner -digestalg SHA1 -sigalg SHA1withRSA -verbose -keystore ~/Desktop/jiagu/key.jks -signedjar ~/Desktop/jiagu/legu_sign_sha.apk ~/Desktop/jiagu/legu_unsign.apk  key
+
+# 查看应用签名信息 （*.apk/META-INF/*.RSA）路径
+keytool -printcert -file ANDROID_.RSA
  
