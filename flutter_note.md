@@ -1238,3 +1238,35 @@ If you're running a test, you can call the `TestWidgetsFlutterBinding.ensureInit
 ```
 rm -rf ios/Flutter/App.framework
 ```
+
+
+### list 多个future处理
+```
+Future.wait(_handleSelectData()).then((List<bool> list) {
+                  if (list != null && list.isNotEmpty) {
+                    list.forEach((element) {
+                      if (!element) {
+                        count++;
+                      }
+                    });
+                  }
+                  Utils.debug("length count $length $count");
+                  if (count != 0 && length == count) {
+                    selectedList.clear();
+                    Toast.show("没有找到相应的内容");
+                  }
+                  widget.onClickSend(selectedList);
+                });
+
+  List<Future<bool>> _handleSelectData(){
+    List<Future<bool>> list = [];
+    for (int i = 0; i < selectedList.length; i++) {
+      AssetEntity assetEntity = selectedList[i];
+      if (assetEntity == null) {
+        continue;
+      }
+      list.add(assetEntity.exists);
+    }
+    return list;
+  }
+```
