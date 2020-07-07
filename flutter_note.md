@@ -559,7 +559,7 @@ android.applicationVariants.all { variant ->
 
 ### 在flutter widget layout 完成之后进行操作
 (after_layout)[https://github.com/fluttercommunity/flutter_after_layout]
-```
+```dart
 @override
   void initState() {
     super.initState();
@@ -570,12 +570,12 @@ android.applicationVariants.all { variant ->
 
 ### flustars 屏幕适配如果不依赖context 需要在build时
 (flustars)[https://github.com/Sky24n/flustars]
-```
+```dart
 MediaQuery.of(context);
 ```
 
 ### dart string toInt double to int 
-```
+```dart
 int.parse('1');
 Int64.parseInt('str');
 var myDouble = double.parse('123.45');
@@ -584,7 +584,7 @@ print(myDouble); // 123.45
 ```
 
 ### flutter_slidable 侧滑控件点击隐藏侧滑按钮
-```
+```dart
 //How to let keep only one Slidable open?
 //You have to set the controller parameter of the Slidable constructors to a SlidableController instance:
 //保留一个Slidable打开
@@ -611,7 +611,7 @@ showModalBottomSheet(
 ### socket.io不能正常工作 
 [Socket.io not working on Android 9 (API level 28) ](https://stackoverflow.com/questions/53284903/socket-io-not-working-on-android-9-api-level-28?tdsourcetag=s_pcqq_aiomsg)  
 Simply can be done by adding following in your manifest:
-```
+```dart
 android:usesCleartextTraffic="true"
 ```
 
@@ -620,7 +620,7 @@ android:usesCleartextTraffic="true"
 
 ### How to convert Flutter color to string and back to a color 
 [颜色转换](https://stackoverflow.com/questions/49835146/how-to-convert-flutter-color-to-string-and-back-to-a-color)
-```
+```dart
 Color color = new Color(0x12345678);
 String colorString = color.toString(); // Color(0x12345678)
 String valueString = colorString.split('(0x')[1].split(')')[0]; // kind of hacky..
@@ -680,7 +680,8 @@ row/column MainAxisSize.min which behaves as wrap_content and MainAxisSize.max w
 - [socket 长连接](http://www.52im.net/forum.php?mod=viewthread&tid=1722&highlight=%B3%A4%C1%AC%BD%D3)
 
 ### flutter lifecycle 对应 Android onResume
-```
+* 如果嵌入原生界面，跳转原生界面也会触发lifecycle，最好是把对应的生命周期通过原生回调进行处理
+```dart
 widget with WidgetsBindingObserver
 
   @override
@@ -704,6 +705,76 @@ widget with WidgetsBindingObserver
       // came back to Foreground
     }
   }
+```
+```java
+// 
+public class MyApplication {
+public void onCreate() {
+        super.onCreate();
+        gContext = getApplicationContext();
+        //初始化MobSDK
+//        FlutterMain.startInitialization(this);
+//        MobSDK.init(this);
+
+        registerActivityLifecycle();
+        PlayerConfig.playRecord(true);
+        PlayRecordManager.setRecordConfig(new PlayRecordManager.RecordConfig.Builder()
+                .setMaxRecordCount(100).build());
+        PlayerLibrary.init(this);
+        CacheMgr.getInstance().loadLoadingRes(this,null); //提前加载loading
+
+        //测试bug收集
+        UEH.init();
+    }
+
+private void registerActivityLifecycle() {
+        registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle bundle) {
+                gStack.add(activity);
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+                gStack.onStart();
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+                gStack.onResume(activity);
+
+                if (!mIsActive) {
+                    mIsActive = true;
+                    SystemInfoPluginMgt.getInstance().onAppStateChange("onForeground");
+                }
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+                gStack.onPause(activity);
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+                gStack.onStop();
+
+                if (SystemUtils.isBackground()) {
+                    //app 进入后台
+                    mIsActive = false;//记录当前已经进入后台
+                    SystemInfoPluginMgt.getInstance().onAppStateChange("onBackground");
+                }
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {}
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+                gStack.remove(activity);
+            }
+        });
+    }
+}    
 ```
 
 ### flutter 粘贴板
@@ -758,7 +829,7 @@ connectivity
 [Homepage](https://github.com/flutter/plugins/tree/master/packages/connectivity)
 
 ## TextField  多行输入配置
-```
+```dart
 TextField(
   controller: textEditingController ?? TextEditingController(),
   maxLines: 4,// 设置多行
@@ -920,7 +991,7 @@ RaisedButton(
 )
 ```
 * timer
-```
+```dart
 import 'dart:async';
  
 Function debounce(Function fn, [int t = 30]) {
@@ -1040,6 +1111,15 @@ TextField(
 ## 退出应用
 SystemNavigator.pop();
 exit(0); //会有黑屏
+```dart
+  Future _exit() async {
+    if (Platform.isIOS) {
+      exit(0);
+    } else {
+      await SystemNavigator.pop();
+    }
+  }
+```
 
 ## audioplayers 
 [传送门](https://pub.flutter-io.cn/packages/audioplayers)
@@ -1284,28 +1364,67 @@ Future.wait(_handleSelectData()).then((List<bool> list) {
 * [azlistview](https://github.com/flutterchina/azlistview)
 
 ### InkWell GestureDetector 点击区域
-* GestureDetector 子控件Container不增加背景色，点击区域只有Container子控件的区域可以进行点击
-* InkWell 子控件Container不需要增加背景色，点击区域就是Container的控件大小
-  ```dart
-  // GestureDetector(
-     InkWell(
-       child: Container(
-         height: Macros.scale(50),
-         width: Macros.scale(88),
-         alignment: Alignment.center,
-         child: Text(
-           '移到最前',
-           style: TextStyle(
-               color: Color(0xFF333333),
-               fontSize: Macros.scale(16),
-               fontWeight: FontWeight.w400),
-         ),
+* `GestureDetector`子控件Container不增加背景色，点击区域只有Container子控件的区域可以进行点击
+* `InkWell`子控件Container不需要增加背景色，点击区域就是Container的控件大小，`build`时使用的`GestureDetector`增加了`behavior: HitTestBehavior.opaque,`
+* 解决方式是添加：`GestureDetector behavior: HitTestBehavior.opaque`,属性，可以让点击事件透过这个Text的区域。如果不添加这个属性，那么只能点击到文字时才会有响应。如下图所示：
+* 默认是`deferToChild`，只能点击实际绘制的组件大小
+```dart
+/// How to behave during hit tests.
+enum HitTestBehavior {
+  /// Targets that defer to their children receive events within their bounds
+  /// only if one of their children is hit by the hit test.
+  deferToChild,
+
+  /// Opaque targets can be hit by hit tests, causing them to both receive
+  /// events within their bounds and prevent targets visually behind them from
+  /// also receiving events.
+  opaque,
+
+  /// Translucent targets both receive events within their bounds and permit
+  /// targets visually behind them to also receive events.
+  translucent,
+}
+
+
+HitTestBehavior get _defaultBehavior {
+  return widget.child == null ? HitTestBehavior.translucent : HitTestBehavior.deferToChild;
+}
+
+@override
+Widget build(BuildContext context) {
+  Widget result = Listener(
+    onPointerDown: _handlePointerDown,
+    behavior: widget.behavior ?? _defaultBehavior,
+    child: widget.child,
+  );
+  if (!widget.excludeFromSemantics)
+    result = _GestureSemantics(
+      child: result,
+      assignSemantics: _updateSemanticsForRenderObject,
+    );
+  return result;
+}
+```
+```dart
+// GestureDetector(
+   InkWell(
+     child: Container(
+       height: Macros.scale(50),
+       width: Macros.scale(88),
+       alignment: Alignment.center,
+       child: Text(
+         '移到最前',
+         style: TextStyle(
+             color: Color(0xFF333333),
+             fontSize: Macros.scale(16),
+             fontWeight: FontWeight.w400),
        ),
-       onTap: () {
-         _topCustomEmoji();
-       },
      ),
-  ```
+     onTap: () {
+       _topCustomEmoji();
+     },
+   ),
+```
 
 ### 文本 text textstyle 留白处理
 ```dart
@@ -1470,4 +1589,244 @@ TextField(
     return map;
   }
 
+```
+
+### CocoaPods 更新失败问题修复
+[传送门](https://www.jianshu.com/p/4ed3645a410a)
+
+#### InheritedWidget的使用
+* [传送门](https://www.jianshu.com/p/97e49f336856)
+* 使用InheritedWidget可以解决子控件修改数据传递给父控件。</br>
+父控件为A </br>
+
+```dart
+class A extends StatefulWidget {
+  @override
+  _AState createState() => _AState();
+}
+
+class _AState extends State<A> {
+  String tmpSendText;
+
+  //当子控件B有数据改变的时候会响应此方法
+  changeSendText(String text) {
+    tmpSendText = text;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ChatTextFieldItemContext(
+        sendText: tmpSendText,
+        changeSendText: changeSendText,
+        child: Container(
+          child: Text(tmpSendText)
+        ));
+  }
+}
+```
+* InheritedWidget 中间件
+```dart
+class ChatTextFieldItemContext extends InheritedWidget {
+  String sendText;
+  final Function(String sendText) changeSendText;
+
+  ChatTextFieldItemContext(
+      {Key key, @required this.sendText, @required this.changeSendText, @required Widget child})
+      : super(key: key, child: child);
+
+  static ChatTextFieldItemContext of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType();
+  }
+
+  @override
+  bool updateShouldNotify(InheritedWidget oldWidget) {
+    return true;
+  }
+}
+``` 
+* 子控件B  需要在B中import中间件InheritedWidget：ChatTextFieldItemContext
+```dart
+class B extends StatefulWidget {
+  @override
+  _BState createState() => _BState();
+}
+
+class _BState extends State<B> {
+  //需要在B中声明ChatTextFieldItemContext
+  ChatTextFieldItemContext _chatTextFieldItemContext;
+
+  @override
+  Widget build(BuildContext context) {
+    //子控件B与ChatTextFieldItemContext中间件绑定
+    _chatTextFieldItemContext = ChatTextFieldItemContext.of(context);
+    return Container(
+          child: TextField(
+        controller: textEditingController,
+        maxLines: 4,
+        minLines: 1,
+        maxLength: 2000,
+        autofocus: true,
+        textInputAction: TextInputAction.newline,
+        keyboardType: TextInputType.multiline,
+        onChanged: (value) {
+          //TextField改变时把数据给到父控件A
+          _chatTextFieldItemContext.changeSendText(value);
+        },
+      )
+    );
+  }
+}
+```
+
+#### 导航栏左右间隔变成0
+只要title的间隔为0， 关闭自动对齐,  给title一个row
+```dart
+AppBar(
+  //关闭自动对齐
+  automaticallyImplyLeading: false,
+  elevation: 0,
+  //title的间隔为0
+  titleSpacing: 0,
+  brightness: Brightness.light,
+  //给title一个row
+  title: Row(
+    children: <Widget>[
+      GestureDetector(
+        child: Container(
+          alignment: Alignment.center,
+          width: Macros.scale(74),
+          child: Text(
+            '取消',
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: Macros.scale(17),
+                fontWeight: FontWeight.w400),
+          ),
+        ),
+        onTap: () {
+          if (showGalleryList) {
+            galleryViewOverlay?.remove();
+          }
+          Navigator.pop(context);
+        },
+      ),
+      Expanded(
+        child: GestureDetector(
+          onTap: () {
+            _showGalleryView();
+          },
+          child: Container(
+            key: anchorKey,
+            alignment: Alignment.center,
+            child: Container(
+              height: Macros.scale(30),
+              width: Macros.scale(120),
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(right: Macros.scale(74)),
+              padding: EdgeInsets.symmetric(horizontal: Macros.scale(14)),
+              decoration: BoxDecoration(
+                  color: Color(0x26FFFFFF),
+                  borderRadius: BorderRadius.all(Radius.circular(Macros.scale(15)))),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.center,
+                    width: Macros.scale(68),
+                    child: Text(
+                      galleryName,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: Macros.scale(17),
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  Container(
+                    color: Colors.transparent,
+                    child: showGalleryList
+                        ? loadAssetImage("chat/icon_unfold_show")
+                        : loadAssetImage("chat/icon_unfold"),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      )
+    ],
+  ),
+  backgroundColor: Color(0xFF4F4F4F),
+)
+ ```
+
+### 系统字体缩放
+* [传送门](https://juejin.im/post/5c9e328251882567b91e1cfb)
+现在的手机一般都提供字体缩放，这给应用开发的适配上带来一定工作量，所以大多数时候我们会选择禁止应用跟随系统字体缩放。
+
+在 Flutter 中字体缩放也是和 MediaQueryData 的 textScaleFactor 有关。所以我们可以在需要的页面，通过最外层嵌套如下代码设置，将字体设置为默认不允许缩放。
+```dart
+MediaQuery(
+  data: MediaQueryData.fromWindow(WidgetsBinding.instance.window).copyWith(textScaleFactor: 1),
+  child: new Container(),
+);
+```
+* 布局
+```dart
+import 'package:flutter/material.dart';
+
+class TextScaleConfigWidget extends StatelessWidget {
+  final double scale;
+  final Widget child;
+
+  const TextScaleConfigWidget({
+    Key key,
+    this.scale : 1.0,
+    @required this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var data = MediaQuery.of(context);
+
+    return MediaQuery(
+      data: data.copyWith(textScaleFactor: scale),
+      child: child,
+    );
+  }
+}
+```
+* 在组件或者页面中使用
+```dart
+  @override
+  Widget build(BuildContext context) {
+    return TextScaleConfigWidget(
+      child: Scaffold()
+    );
+  }
+```
+* 在路由中使用
+```dart
+router.define(resetPasswordPage, handler: Handle(handlerFunc: (context, params) {
+    return TextScaleConfigWidget(
+      child: ResetPasswordPage(
+        mobile: params['mobile']?.first,
+      ),
+    );
+}));
+```
+
+### 图片预加载
+```dart
+class MyWidgetState extends State<MyWidget> {
+
+  @override
+  void initState() {
+    // adjust the provider based on the image type
+    precacheImage(AssetImage('...'));
+    super.initState();
+  }
+
+}
 ```
