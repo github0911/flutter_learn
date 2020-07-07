@@ -714,6 +714,7 @@ Clipboard.setData(ClipboardData(text: 'dc123456'));
 // 获取粘贴板数据
 ClipboardData clipboardData = await Clipboard.getData(Clipboard.kTextPlain);
 String str = clipboardData.text;
+获取粘贴板数据需要进行延迟处理（Android）
 ```
 
 ### 聊天界面
@@ -1045,6 +1046,7 @@ exit(0); //会有黑屏
 * Unhandled Exception: MissingPluginException #216
 * flutter clean & flutter pub get
 
+## Android 返回桌面应用不被回收
 ``` java
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
@@ -1183,7 +1185,7 @@ main(){
 }
 ```
 
-### 文本字符显示 https://pub.flutter-io.cn/packagesassorted_layout_widgets
+### 文本字符显示 https://pub.flutter-io.cn/packages/assorted_layout_widgets
 单行字符显示
 assorted_layout_widgets: ^1.0.18
 
@@ -1206,7 +1208,7 @@ killall iproxy
 执行 /Users/zhangmingming/development/flutter/bin/cache/artifacts/usbmuxd/iproxy
 export NO_PROXY=127.0.0.1,localhost
 
-### 
+### Flutter Json自动反序列化
 https://juejin.im/post/5b5f00e7e51d45190571172f
 flutter packages pub run build_runner build
 
@@ -1241,7 +1243,7 @@ rm -rf ios/Flutter/App.framework
 
 
 ### list 多个future处理
-```
+```dart
 Future.wait(_handleSelectData()).then((List<bool> list) {
                   if (list != null && list.isNotEmpty) {
                     list.forEach((element) {
@@ -1269,4 +1271,203 @@ Future.wait(_handleSelectData()).then((List<bool> list) {
     }
     return list;
   }
+```
+
+### provider获取protobuf数据
+对象需要进行clone处理，list、map需要重新定义数据进行包装处理
+
+### provider的调用（3.x、4.x）
+3.x listen 默认为true，不设置默认会订阅数据变化
+4.x value 只是使用provider的数据不进行订阅（listen为false），watch 使用数据并订阅数据变化（listen为true）
+
+### azlistview item需要给高度值，不然定位有偏差，head，分隔的item也需要给固定高度
+* [azlistview](https://github.com/flutterchina/azlistview)
+
+### InkWell GestureDetector 点击区域
+* GestureDetector 子控件Container不增加背景色，点击区域只有Container子控件的区域可以进行点击
+* InkWell 子控件Container不需要增加背景色，点击区域就是Container的控件大小
+  ```dart
+  // GestureDetector(
+     InkWell(
+       child: Container(
+         height: Macros.scale(50),
+         width: Macros.scale(88),
+         alignment: Alignment.center,
+         child: Text(
+           '移到最前',
+           style: TextStyle(
+               color: Color(0xFF333333),
+               fontSize: Macros.scale(16),
+               fontWeight: FontWeight.w400),
+         ),
+       ),
+       onTap: () {
+         _topCustomEmoji();
+       },
+     ),
+  ```
+
+### 文本 text textstyle 留白处理
+```dart
+Text(
+  timestampStr,
+  textAlign: TextAlign.center,
+  style: TextStyle(
+    color: Color(0xFFBDBDC7),
+    fontSize: Macros.scale(13),
+    height: _getTextStyleHeight(),
+  ),
+)
+_getTextStyleHeight() {
+  double height = Macros.scale(1.4);
+  if (Macros.isiPhoneXR()) {
+    height = Macros.scale(1.5);
+  }
+  if (Macros.isiPhoneX()) {
+    height = Macros.scale(1.35);
+  }
+  if (Macros.isiPhoneXMax()) {
+    height = Macros.scale(1.3);
+  }
+  return height;
+}
+```
+
+### Row 组件居中显示
+```dart
+Row(
+  crossAxisAlignment: CrossAxisAlignment.baseline,
+  textBaseline: TextBaseline.alphabetic,
+  children: <Widget>[
+    Container(
+      
+    ),
+   
+  ],
+),
+```
+
+### 输入字符计算
+```dart
+TextField(
+   obscureText: false,
+   maxLength: widget.isCalculateLength ?null : widget.maxLength,
+   keyboardType: TextInputType.text,
+   controller: _controller,
+   focusNode: _focusNode,
+   cursorColor: Colours.brand_yellow,
+   style: TextStyle(
+     fontSize: Macros.scale(15),
+   ),
+   decoration: InputDecoration(
+     hintText: _hint,
+     border: InputBorder.none, //去掉下划线
+     hintStyle: TextStyle(
+       color: Colours.text_gray_cf,
+       fontSize: Macros.scale(15),
+     ),
+     counterText: "",
+   ),
+   inputFormatters: widgetinputFormatters == null
+       ? [
+           WhitelistingTextInputFormatter(
+               RegExp(Platform.isIOS ? r"[^@#]" : r"[^@#\s]")),
+         ]
+       : widget.inputFormatters,
+   onChanged: widget.isCalculateLength
+              ? (String value) {
+        int specialCodeCount = 0;
+        if (Platform.isIOS) {
+          Map map = Utils.handleText(value);
+          if (map['hasEmpty']) {
+            _controller.text = map['text'];
+          }
+          specialCodeCount = map['specialCodeCount'];
+        }
+        int maxLength = widget.maxLength;
+        if (specialCodeCount != 0) {
+          maxLength = maxLength - specialCodeCount;
+        }
+        Map map = Utils.calculateLength(value, maxLength);
+        if (map['setSelection']) {
+          String name = map['text'];
+          _controller = TextEditingController.fromValue(TextEditingValue(
+              text: name,
+              selection: TextSelection.fromPosition(
+                  TextPosition(offset: name.length))));
+        }
+        setState(() {});
+      }
+    : null,
+)
+
+  /// 计算字符长度，区分中文，英文，数字 中文字符2个，英文字符1个
+  ///
+  /// text 计算的字符
+  ///
+  /// countLength 长度
+  static Map<String, dynamic> calculateLength(String text, int countLength) {
+    Map<String, dynamic> map = {};
+    map['setSelection'] = false;
+    StringBuffer tempText = StringBuffer();
+    if (StringUtils.isNotEmpty(text)) {
+      int count = 0;
+      List<String> list = text.split('');
+      if (list != null && list.isNotEmpty) {
+        int length = list.length;
+        for (int i = 0; i < length; i++) {
+          String s = list[i];
+          if (StringUtils.isBlank(s)) {
+            continue;
+          }
+          List<int> bytes = Utf8Encoder().convert(
+            s,
+          );
+          if (bytes != null) {
+            if (bytes.length == 3) {
+              // 中文，字符
+              count += 2;
+            } else if (bytes.length == 1) {
+              count += 1;
+            }
+          }
+          if (count > countLength) {
+            map['setSelection'] = true;
+            break;
+          }
+          tempText.write(s);
+        }
+      }
+    }
+    map['text'] = tempText.toString();
+    return map;
+  }
+
+  /// 处理iOS字符输入
+  static Map<String, dynamic> handleText(String text) {
+    Map<String, dynamic> map = {};
+    int specialCodeCount = 0;
+    bool hasEmpty = false;
+    String value = "";
+    if (StringUtils.isNotEmpty(text)) {
+      List<int> codeUnits = text.codeUnits;
+      List<int> newUnits = [];
+      codeUnits.forEach((int v) {
+        if (v != 32) {
+          newUnits.add(v);
+        } else {
+          hasEmpty = true;
+        }
+        if (v == 8198) {
+          specialCodeCount += 1;
+        }
+      });
+      value = String.fromCharCodes(newUnits);
+    }
+    map['text'] = value;
+    map['hasEmpty'] = hasEmpty;
+    map['specialCodeCount'] = specialCodeCount;
+    return map;
+  }
+
 ```
