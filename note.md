@@ -92,3 +92,79 @@ scp myfile.txt remoteuser@remoteserver:/remote/folder/
 
 ## android 粘贴板无法获取内容
 需要进行延时获取
+
+
+1、下载安装jetbrains软件，按照提示完成安装，这里以IntelliJ IDEA为例
+
+2、把下载的jar包放在idea的安装目录下（bin）
+
+3、修改idea安装目录下文件，可以以记事本方式打开
+
+idea.exe.vmoptions
+idea64.exe.vmoptions
+
+4、添加 -javaagent:jar包路径
+# -javaagent:../bin/JetbrainsCrack.jar
+5、重启idea即可
+
+如需要激活先勾选“Activate”，然后勾选“Activation code”，在下面的方框里输入注册码即可
+
+第二步：复制补丁到软件安装目录
+将JetbrainsCrack-4.2-release.jar文件安装目录bin文件下
+
+第三步：修改安装目录下bin的两个文件WebStorm.exe.vmoptions 和WebStorm64.exe.vmoptions
+在这两个文件末尾添加这行代码
+
+-javaagent: 绝对路径、破解补丁名称（注意：补丁路径要正确，否则软件无法打开）
+
+示例一：安装目录D:\Program Files\情况下
+-javaagent:D:\Program Files\JetBrains\WebStorm\bin\JetbrainsCrack-4.2-release.jar
+
+示例二：安装目录D:\sofeware\情况下
+-javaagent:D:\sofeware\JetBrains\WebStorm\bin\JetbrainsCrack-4.2-release.jar
+修改后，保存文件。确保补丁能够被读取到，破解才能生效。
+
+第四步：启动WebStorm软件，选择activation code，复制下面代码进去。
+
+### Git 提交规则
+```
+<type>(<scope>): <subject>
+<BLANK LINE>
+<body>
+<BLANK LINE>
+<footer>
+```
+
+- type: 本次 commit 的类型，诸如 bugfix docs style等
+- scope: 本次 commit 波及的范围，可选
+- subject: 简明扼要的阐述下本次 commit 的主旨，在原文中特意强调了几点 1. 使用祈使句，是不是很熟悉又陌生的一个词，来传送门在此 祈使句 2. 首字母不要大写 3. 结尾无需添加标点
+- body: 同样使用祈使句，在主体内容中我们需要把本次 commit 详细的描述一下，比如此次变更的动机，如需换行，则使用 |
+- footer: 描述下与之关联的 issue 或 break change，详见案例
+
+#### Type的类别说明：
+- feat: 添加新特性/新功能
+- fix: 修复bug
+- docs: 仅仅修改了文档
+- style: 仅仅修改了空格、格式缩进、都好等等，不改变代码逻辑
+- refactor: 代码重构，没有加新功能或者修复bug
+- perf: 增加代码进行性能测试
+- test: 增加测试用例
+- chore: 改变构建流程、或者增加依赖库、工具等
+
+```
+fix:语音频道权限同步异常
+feat:举报功能
+```
+
+#### 参考文章
+* [GitHub](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines)
+* [SegmentFault](https://segmentfault.com/a/1190000009048911)
+* [倔金](https://juejin.im/post/5b4328bbf265da0fa21a6820)
+* [Commit message 和 Change log 编写指南](http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html)
+
+### Git 分支管理
+- master/live（主分支）
+- develop（开发）
+- feature （功能）
+- release/new（预发布）
+- fixbug（修复bug）

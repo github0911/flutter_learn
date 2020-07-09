@@ -1366,7 +1366,7 @@ Future.wait(_handleSelectData()).then((List<bool> list) {
 ### InkWell GestureDetector 点击区域
 * `GestureDetector`子控件Container不增加背景色，点击区域只有Container子控件的区域可以进行点击
 * `InkWell`子控件Container不需要增加背景色，点击区域就是Container的控件大小，`build`时使用的`GestureDetector`增加了`behavior: HitTestBehavior.opaque,`
-* 解决方式是添加：`GestureDetector behavior: HitTestBehavior.opaque`,属性，可以让点击事件透过这个Text的区域。如果不添加这个属性，那么只能点击到文字时才会有响应。如下图所示：
+* 解决方式是添加：`GestureDetector behavior: HitTestBehavior.opaque`,属性，可以让点击事件透过这个Text的区域。如果不添加这个属性，那么只能点击到文字时才会有响应。
 * 默认是`deferToChild`，只能点击实际绘制的组件大小
 ```dart
 /// How to behave during hit tests.

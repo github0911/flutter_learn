@@ -70,6 +70,9 @@ qq登录
 jpush(极光推送)
 - [极光推送](https://github.com/jpush/jpush-flutter-plugin)
 
+badges
+- [badges](https://pub.flutter-io.cn/packages/badges)
+
 gallery(官方示例)
 ==
 ```
