@@ -1314,6 +1314,8 @@ If you're running a test, you can call the `TestWidgetsFlutterBinding.ensureInit
 
 ### dart protobuf 处理
 如果是要给对象赋值操作，需要进行clone之后再进行处理，不然会出现readonly
+对象嵌套对象，内嵌对象的属性赋值，需要新建对象进行操作，不能直接进行操作
+https://github.com/dart-lang/protobuf/issues/305
 
 ### [App.framework] Linked and embedded framework 'App.framework' was built for iOS/iOS Simulator
 [传送门](https://github.com/flutter/flutter/issues/50568)
@@ -1829,4 +1831,87 @@ class MyWidgetState extends State<MyWidget> {
   }
 
 }
+```
+
+### Slidable 手势处理
+```dart
+  @override
+  Widget build(BuildContext context) {
+    super.build(context); // See AutomaticKeepAliveClientMixin.
+
+    Widget content = widget.child;
+    // action大于0会进行手势处理
+    if (!(!widget.enabled ||
+        ((widget.actionDelegate == null ||
+                widget.actionDelegate.actionCount == 0) &&
+            (widget.secondaryActionDelegate == null ||
+                widget.secondaryActionDelegate.actionCount == 0)))) {
+      if (actionType == SlideActionType.primary &&
+              widget.actionDelegate != null &&
+              widget.actionDelegate.actionCount > 0 ||
+          actionType == SlideActionType.secondary &&
+              widget.secondaryActionDelegate != null &&
+              widget.secondaryActionDelegate.actionCount > 0) {
+        if (_dismissible) {
+          content = widget.dismissal;
+
+          if (_resizeAnimation != null) {
+            // we've been dragged aside, and are now resizing.
+            assert(() {
+              if (_resizeAnimation.status != AnimationStatus.forward) {
+                assert(_resizeAnimation.status == AnimationStatus.completed);
+                throw FlutterError(
+                    'A dismissed Slidable widget is still part of the tree.\n'
+                    'Make sure to implement the onDismissed handler and to immediately remove the Slidable\n'
+                    'widget from the application once that handler has fired.');
+              }
+              return true;
+            }());
+
+            content = SizeTransition(
+              sizeFactor: _resizeAnimation,
+              axis: _directionIsXAxis ? Axis.vertical : Axis.horizontal,
+              child: SizedBox(
+                width: _sizePriorToCollapse.width,
+                height: _sizePriorToCollapse.height,
+                child: content,
+              ),
+            );
+          }
+        } else {
+          content = widget.actionPane;
+        }
+      }
+
+      content = GestureDetector(
+        onHorizontalDragStart: _directionIsXAxis ? _handleDragStart : null,
+        onHorizontalDragUpdate: _directionIsXAxis ? _handleDragUpdate : null,
+        onHorizontalDragEnd: _directionIsXAxis ? _handleDragEnd : null,
+        onVerticalDragStart: _directionIsXAxis ? null : _handleDragStart,
+        onVerticalDragUpdate: _directionIsXAxis ? null : _handleDragUpdate,
+        onVerticalDragEnd: _directionIsXAxis ? null : _handleDragEnd,
+        behavior: HitTestBehavior.opaque,
+        child: content,
+      );
+    }
+
+    return _SlidableScope(
+      state: this,
+      child: SlidableData(
+        actionType: actionType,
+        renderingMode: _renderingMode,
+        totalActionsExtent: _totalActionsExtent,
+        dismissThreshold: _dismissThreshold,
+        dismissible: _dismissible,
+        actionDelegate: _actionDelegate,
+        overallMoveAnimation: overallMoveAnimation,
+        actionsMoveAnimation: _actionsMoveAnimation,
+        dismissAnimation: _dismissAnimation,
+        slidable: widget,
+        actionExtentRatio: widget.actionExtentRatio,
+        direction: widget.direction,
+        child: content,
+      ),
+    );
+  }
 ```

@@ -37,6 +37,7 @@ sudo spctl --master-disable
 
 ## mac 进程kill 
 ```
+ps -ef | grep flutter(进程命令)
 kill -9 999 (999为进程id)
 ```
 
@@ -199,3 +200,22 @@ feat:举报功能
 # 内容多行时以'-'分隔
 # --------------------
 ```
+
+* [参考文章](https://fiissh.tech/2019/git-commit-template.html)
+
+## MVVM
+### 参考文章
+* (An Introduction to MVVM in Flutter)[https://medium.com/better-programming/mvvm-in-flutter-edd212fd767a]
+* (Use Model-View-ViewModel to make your code cleaner in Flutter with Dart Streams)[https://medium.com/free-code-camp/app-architecture-mvvm-in-flutter-using-dart-streams-26f6bd6ae4b6]
+* (fast_mvvm github)[https://github.com/StrangerKjq/fast_mvvm]
+* (fast_mvvm csdn)[https://blog.csdn.net/q948182974/article/details/106613565]
+
+### 长连接，短连接
+网络请求都是使用的httpClient 
+* webSocket `websocket_impl.dart`使用的是`httpClient.openUrl("GET")`
+* dio `dio.dart` method `_dispatchRequest`
+* `io_adapter.dart`的`DefaultHttpClientAdapter`使用`httpClient.openUrl(options.method, options.uri)`;
+长连接会出现连接超时，导致短连接发送请求之后会出现超时
+
+### CocoaPods not installed or not in valid state
+[传送门](https://github.com/flutter/flutter/issues/54962)
