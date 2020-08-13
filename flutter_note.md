@@ -1915,3 +1915,87 @@ class MyWidgetState extends State<MyWidget> {
     );
   }
 ```
+
+### list 是否相等`collections.dart`
+[参考链接](https://stackoverflow.com/questions/10404516/how-can-i-compare-lists-for-equality-in-dart)
+* setEquals mapEquals
+```dart
+listEquals(a, b);
+```
+
+### Flutter插件开发集成aar包出现：Could not determine the dependencies of task ':flutter_vpn:compileDebugAidl'.问题
+Missing Plugins exception when adding AAR to existing Android project
+[参考链接-github](https://github.com/flutter/flutter/issues/23944)
+[参考链接-csdn](https://blog.csdn.net/ygz111111/article/details/104300641)
+[参考链接-cnblogs](https://www.cnblogs.com/bluestorm/p/6757999.html)
+如果离线的方式解决不了，使用在线方式，通过配置gradle配置
+
+# Flutter 加载列表建议
+
+## 使用场景
+
+主要针对可搜索/筛选的列表（Loading + 缺省页 + 列表内容/带有StreamBuilder的控件）
+推荐布局方式：
+> Offstage值：false 才会正常包含在树中，true 是隐藏的意思，会布置成在树中，但是不绘制任何东西，child不可以命中测试且不占用父对象的任何空间。
+
+``` dart
+  _getBodyWidget() {
+    return Stack(
+      children: <Widget>[
+        Offstage(
+          offstage: !_isShowLoading && !listNotEmpty,
+          child: _bodyWidget(),
+        ),
+        Offstage(
+          offstage: _isShowLoading,
+          child: !listNotEmpty ? _emptyWidget() : Gaps.empty,
+        ),
+        Offstage(
+          offstage: !_isShowLoading,
+          child: getGrayLoadingWidget(),
+        ),
+      ],
+    );
+  }
+
+  _bodyWidget(){
+    return ListView.build(
+        controller: _scrollController,
+    );
+  }
+```
+
+## 使用不当的例子
+
+这个例子，一般情况不会出问题，但是如果body中是一个带Controller的List等，再次从 `_emptyWidget` 到 `ListView`，则会报错红屏： `A ScrollController was used after being disposed.` 。同理， `StreamBuilder` 中绑定的 `stream` 也一样会出现类似的错误。
+
+> The following assertion was thrown building AzListView(state: _AzListViewState#6c77a):  
+A ScrollController was used after being disposed.  
+Once you have called dispose() on a ScrollController, it can no longer be used.  
+
+``` dart
+  _getBodyWidget() {
+    Widget bodyWidget = Gaps.empty;
+    if (!_isShowLoading) {
+      if (listNotEmpty) {
+        bodyWidget = _bodyWidget();
+      } else {
+        bodyWidget = _emptyWidget();
+      }
+    }
+    return Stack(
+      children: <Widget>[
+        bodyWidget,
+        Visibility(
+          visible: _isShowLoading,
+          child: getGrayLoadingWidget(),
+        ),
+      ]);
+  }
+
+  _bodyWidget(){
+    return ListView.build(
+        controller: _scrollController,
+    );
+  }
+```

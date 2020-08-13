@@ -219,3 +219,23 @@ feat:举报功能
 
 ### CocoaPods not installed or not in valid state
 [传送门](https://github.com/flutter/flutter/issues/54962)
+
+### TestFlight异常
+* 配置DNS114.114.114.114
+[传送门](https://discussionschinese.apple.com/thread/251645327)
+
+### dart 泛型用法
+[传送门](https://www.cnblogs.com/lxlx1798/p/11017768.html)
+```dart
+//不确定类型：同时返回 string类型 和number类型  （放弃了类型检查）
+
+   getData(value){
+      return value;
+   }
+
+//泛型处理：比如:传入number 类型必须返回number类型  传入 string类型必须返回string类型（即减少了代码冗余，又可以检查类型）
+   //返回T型
+   T getData<T>(T value){
+       return value;
+   }
+```
